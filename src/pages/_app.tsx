@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 const queryClient = new QueryClient()
-import { ThemeProvider } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
 import GlobalCssPriority from '@/components/globalcssprop'
 import theme from '@/utils/theme'
 import { Provider } from 'react-redux'

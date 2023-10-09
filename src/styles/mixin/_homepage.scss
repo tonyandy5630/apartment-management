@@ -1,3 +1,5 @@
+@use "../variables/homepage";
+
 @mixin join-button-mixin {
     min-width: 200px;
     max-width: 200px;
@@ -14,4 +16,10 @@
     @include join-button-mixin;
     background: #ff8228;
     color: black;
+}
+
+@mixin picture {
+    height: homepage.$picture-height;
+    width: homepage.$picture-width;
+    border-radius: homepage.$border-radius;
 }

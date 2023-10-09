@@ -2,7 +2,7 @@ import { Stack, Typography } from '@mui/material'
 import React from 'react'
 
 type Props = {
-    title: string
+    title?: string
 }
 
 export default function SectionTitle({ title }: Props) {

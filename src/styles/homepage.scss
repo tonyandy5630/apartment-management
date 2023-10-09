@@ -60,3 +60,17 @@
     top: 10px;
     z-index: -1;
 }
+
+.picture-shadow {
+    @include homepage.picture;
+    position: relative;
+    background: transparent;
+    border: 3px solid white;
+
+    .picture {
+        @include homepage.picture;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+}

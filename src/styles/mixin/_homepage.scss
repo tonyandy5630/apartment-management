@@ -1,0 +1,56 @@
+@use "../variables/homepage";
+@use "../variables/main";
+
+@mixin join-button-mixin {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 60px;
+}
+
+@mixin join-button-shadow {
+    @include join-button-mixin;
+    background: transparent;
+    border: 1px solid white;
+}
+
+@mixin join-button-front {
+    @include join-button-mixin;
+    background: #ff8228;
+    color: black;
+}
+
+@mixin picture {
+    height: homepage.$picture-height;
+    width: homepage.$picture-width;
+    border-radius: main.$border-radius;
+}
+
+@mixin trust-card {
+    height: homepage.$trust-card-height;
+    width: homepage.$trust-card-width;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding-left: 22px;
+    border: 4px solid transparent;
+}
+
+@mixin border-gradient($is-to-right: true) {
+    @if $is-to-right {
+        background: linear-gradient(black, black) padding-box,
+            linear-gradient(to right, main.$primary, main.$secondary) border-box;
+    } @else {
+        background: linear-gradient(black, black) padding-box,
+            linear-gradient(to left, main.$primary, main.$secondary) border-box;
+    }
+}
+
+@mixin text-gradient($is-to-right: true) {
+    @if $is-to-right {
+        background: linear-gradient(to right, main.$primary, main.$secondary);
+    } @else {
+        background: linear-gradient(to left, main.$primary, main.$secondary);
+    }
+}

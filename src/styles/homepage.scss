@@ -1,4 +1,6 @@
 @use "mixin/homepage";
+@use "variables/main";
+
 @import url("https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400;16..144,500;16..144,700&display=swap");
 
 .logo-title {
@@ -73,4 +75,39 @@
         top: 20px;
         left: 20px;
     }
+}
+
+.trust-card {
+    @include homepage.trust-card;
+    @include homepage.border-gradient($is-to-right: true);
+}
+
+.trust-card:nth-child(even) {
+    @include homepage.trust-card;
+    @include homepage.border-gradient($is-to-right: false);
+
+    .trust-card-title {
+        @include homepage.text-gradient($is-to-right: true);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.trust-card-title {
+    @include homepage.text-gradient($is-to-right: false);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.plus-sign {
+    fill: none;
+    stroke: white;
+    stroke-width: 4;
+}
+
+.plus-horizontal,
+.plus-vertical {
+    fill: none;
+    stroke: white;
+    stroke-width: 4;
 }

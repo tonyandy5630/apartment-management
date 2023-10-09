@@ -3,6 +3,7 @@ import '@/styles/homepage.scss'
 import React from 'react'
 import Image from 'next/image'
 import broom from '@/../public/broom.png'
+import ModernButton from '../ModernButton'
 
 type HeroProps = {
     children?: React.ReactElement
@@ -47,22 +48,16 @@ export default function Hero({
                     </Stack>
                     <Stack gap={1}>
                         <Typography>{joinCall}</Typography>
-                        <div className="join-button-container">
-                            <div className="join-button">
-                                <Typography textTransform="uppercase">
-                                    Join with us
-                                </Typography>
-                            </div>
-                            <div className="join-button-shadow"></div>
-                        </div>
+                        <ModernButton />
                     </Stack>
                 </Stack>
                 <Image
                     src={broom.src}
                     width={300}
                     height={500}
-                    className="min-h-[470px] min-w-[330px] absolute right-52 top-[-60px]"
+                    className="min-h-[470px] w-auto h-auto min-w-[330px] absolute right-52 top-[-60px]"
                     alt="Broom"
+                    priority
                 />
             </Container>
         </Box>

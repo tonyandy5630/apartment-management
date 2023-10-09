@@ -10,6 +10,9 @@ import { Box, Container, Stack, Typography } from '@mui/material'
 import ServiceTitle from '@/components/Services/ServiceTitle'
 import '@/styles/homepage.scss'
 import Houses from '@/../public/houses.jpg'
+import TrustCard from '@/components/TrustCard'
+import Footer from '@/components/Footer'
+import ModernButton from '@/components/ModernButton'
 
 export default function Homepage() {
     return (
@@ -33,14 +36,16 @@ export default function Homepage() {
                                 width={280}
                                 height={400}
                                 alt="Cleaning services"
-                                className="absolute top-10 "
+                                className="absolute top-10"
+                                priority
                             />
                             <Image
                                 src={CleaningPic.src}
                                 width={280}
                                 height={400}
                                 alt="Cleaning services"
-                                className="absolute right-0 top-48 "
+                                className="absolute right-0 top-48"
+                                priority
                             />
                         </Box>
                     </Container>
@@ -94,12 +99,30 @@ export default function Homepage() {
                                 width={500}
                                 height={300}
                                 className="picture"
+                                priority
                             />
                         </div>
                     </Stack>
                 </Container>
             </Section>
-            <Section title="Why us" isBackgroundBlack={true}></Section>
+            <Section title="Why us" isBackgroundBlack={true}>
+                <Container>
+                    <Stack justifyContent="center" alignItems="center">
+                        <Stack
+                            direction="row"
+                            justifyContent="space-evenly"
+                            gap={5}
+                            className="mb-6"
+                        >
+                            <TrustCard title="Reliable" />
+                            <TrustCard title="Trust worthy" isSecond={true} />
+                            <TrustCard title="Reliable" />
+                        </Stack>
+                        <ModernButton />
+                    </Stack>
+                </Container>
+            </Section>
+            <Footer />
         </>
     )
 }

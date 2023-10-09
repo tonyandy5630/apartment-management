@@ -28,7 +28,7 @@ export default function Hero({
         >
             <Container
                 component={Stack}
-                className="p-3 py-12 h-[400px] flex flex-row z-1"
+                className="p-3 py-12 h-[400px] flex flex-row z-10"
                 justifyContent="space-between"
             >
                 <Stack

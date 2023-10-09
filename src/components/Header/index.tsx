@@ -17,7 +17,7 @@ export default function Header() {
         <>
             <Box sx={{ flexGrow: 1, height: '64px', zIndex: '-1' }}>
                 <HideOnScroll>
-                    <AppBar>
+                    <AppBar className="z-0">
                         <Container disableGutters>
                             <Stack
                                 component={Toolbar}

@@ -4,8 +4,9 @@ import React from 'react'
 
 export default function Index() {
     return (
-        <Container maxWidth="md" className="min-h-screen bg-black">
+        <>
             <Header />
-        </Container>
+            <Container className="h-[130vh] bg-black"></Container>
+        </>
     )
 }

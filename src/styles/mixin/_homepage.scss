@@ -1,0 +1,17 @@
+@mixin join-button-mixin {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 60px;
+}
+
+@mixin join-button-shadow {
+    @include join-button-mixin;
+    background: transparent;
+    border: 1px solid white;
+}
+
+@mixin join-button-front {
+    @include join-button-mixin;
+    background: #ff8228;
+    color: black;
+}

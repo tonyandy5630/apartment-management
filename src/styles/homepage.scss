@@ -1,0 +1,62 @@
+@use "mixin/homepage";
+@import url("https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400;16..144,500;16..144,700&display=swap");
+
+.logo-title {
+    font-family: "Montagu Slab", serif;
+    font-size: 40px;
+}
+
+.link {
+    font-family: "Montserrat", sans-serif;
+    margin: 0 5px;
+    font-size: 20px;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.section {
+    background: black;
+}
+
+.slogan {
+    background-clip: text;
+    background: linear-gradient(to right, #ff8228, #deba00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.join-button-container {
+    width: fit-content;
+    z-index: 1;
+    position: relative;
+    &:hover {
+        .join-button {
+            @include homepage.join-button-shadow;
+            cursor: pointer;
+            color: white;
+        }
+        .join-button-shadow {
+            @include homepage.join-button-front;
+        }
+    }
+}
+
+.join-button {
+    @include homepage.join-button-front;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    z-index: 0;
+}
+
+.join-button-shadow {
+    @include homepage.join-button-shadow;
+    position: absolute;
+    left: 30px;
+    top: 10px;
+    z-index: -1;
+}

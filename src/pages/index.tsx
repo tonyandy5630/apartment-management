@@ -1,12 +1,16 @@
 import Header from '@/components/Header'
-import { Container, LinearProgress, Stack, Typography } from '@mui/material'
+import Hero from '@/components/Hero'
+import SectionTitle from '@/components/SectionTitle'
+import { slogan, joinCall, subSlogan } from '@/constant/homepage'
+import { Stack, Typography } from '@mui/material'
 import React from 'react'
 
-export default function Index() {
+export default function Homepage() {
     return (
         <>
             <Header />
-            <Container className="h-[130vh] bg-black"></Container>
+            <Hero slogan={slogan} subSlogan={subSlogan} joinCall={joinCall} />
+            <SectionTitle title="our services" />
         </>
     )
 }

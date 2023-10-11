@@ -1,6 +1,7 @@
 import {
     AppBar,
     Box,
+    Button,
     Container,
     Stack,
     Toolbar,
@@ -9,7 +10,6 @@ import {
 import React from 'react'
 import styles from '@/styles/homepage.module.scss'
 import Link from 'next/link'
-import Button from '../Button'
 import HideOnScroll from '../HideOnScroll'
 
 export default function Header() {
@@ -41,7 +41,11 @@ export default function Header() {
                                         </Link>
                                     </Stack>
                                 </Stack>
-                                <Button className="text-black border-black justify-self-end h-7">
+                                <Button
+                                    variant="outlined"
+                                    className="text-black border-black justify-self-end h-7"
+                                    href="auth/login"
+                                >
                                     Login
                                 </Button>
                             </Stack>

@@ -53,9 +53,9 @@ export default function Hero({
                 </Stack>
                 <Image
                     src={broom.src}
-                    width={300}
+                    width={200}
                     height={500}
-                    className="min-h-[470px] w-auto h-auto min-w-[330px] absolute right-52 top-[-60px]"
+                    className="min-h-[470px] w-auto h-auto min-w-[200px] absolute right-52 top-[-60px]"
                     alt="Broom"
                     priority
                 />

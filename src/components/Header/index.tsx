@@ -15,9 +15,9 @@ import HideOnScroll from '../HideOnScroll'
 export default function Header() {
     return (
         <>
-            <Box sx={{ flexGrow: 1, height: '64px', zIndex: '-1' }}>
+            <Box sx={{ flexGrow: 1, height: '64px' }}>
                 <HideOnScroll>
-                    <AppBar className="z-0">
+                    <AppBar>
                         <Container disableGutters>
                             <Stack
                                 component={Toolbar}

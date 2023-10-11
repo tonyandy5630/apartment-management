@@ -54,7 +54,7 @@ export default function Hero({
                     src={broom.src}
                     width={200}
                     height={500}
-                    className="min-h-[470px] w-auto h-auto min-w-[200px] absolute right-52 top-[-60px]"
+                    className="min-h-[470px] w-auto h-auto min-w-[200px] absolute right-28 top-0"
                     alt="Broom"
                     priority
                 />

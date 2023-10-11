@@ -23,7 +23,6 @@ export default function Hero({
             sx={{
                 background: 'black',
                 position: 'relative',
-                zIndex: '10',
             }}
         >
             <Container
@@ -55,7 +54,7 @@ export default function Hero({
                     src={broom.src}
                     width={300}
                     height={500}
-                    className="min-h-[470px] w-auto h-auto min-w-[330px] absolute right-52 top-[-60px]"
+                    className="min-h-[470px] w-auto h-auto min-w-[330px] absolute right-24 top-[0px]"
                     alt="Broom"
                     priority
                 />

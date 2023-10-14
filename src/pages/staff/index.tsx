@@ -12,8 +12,23 @@ import _ from 'lodash'
 import Link from 'next/link'
 import Button from '@/components/Button'
 import GoogleIcon from '@/components/Icons/Google'
+import AuthSelect from '@/components/AuthInput/Select'
+import { Role } from '@/types/auth'
+import { MenuItemType } from '@/types/auth-component'
+import { MANAGER, STAFF } from '@/constant/auth'
 
-const LoginSchema = UserSchema.omit(['email', 'fullname', 'role'])
+const LoginSchema = UserSchema.omit(['email', 'fullname'])
+
+const ROLE_ITEMS: Array<MenuItemType> = [
+    {
+        value: STAFF,
+        name: 'Staff',
+    },
+    {
+        value: MANAGER,
+        name: 'Manager',
+    },
+]
 
 export default function LoginPage() {
     const dispatch = useAppDispatch()
@@ -29,8 +44,9 @@ export default function LoginPage() {
         reset,
         control,
         setError,
+        watch,
         formState: { errors },
-    } = useForm<Omit<UserSchemaType, 'email' | 'fullname' | 'role'>>({
+    } = useForm<Omit<UserSchemaType, 'email' | 'fullname'>>({
         defaultValues: {
             username: '',
             password: '',
@@ -49,7 +65,7 @@ export default function LoginPage() {
     }, [])
 
     const onSubmit: SubmitHandler<
-        Omit<UserSchemaType, 'email' | 'fullname' | 'role'>
+        Omit<UserSchemaType, 'email' | 'fullname'>
     > = async (data) => {
         console.log(data)
         // const req = await dispatch(loginUser(data))
@@ -100,7 +116,7 @@ export default function LoginPage() {
                         direction="column"
                         alignItems="center"
                         justifyContent="space-evenly"
-                        className="h-full p-3 border-2 border-black w-[386.7px] rounded-e-md"
+                        className="w-[386.7px] h-full p-3 border-2 border-black rounded-e-md"
                     >
                         <Image
                             src={logoURL}
@@ -114,9 +130,19 @@ export default function LoginPage() {
                             }}
                         >
                             <form
-                                className="flex flex-col items-center justify-center gap-y-5"
                                 onSubmit={handleSubmit(onSubmit)}
+                                className="flex flex-col items-center justify-center gap-y-3"
                             >
+                                <AuthSelect
+                                    items={ROLE_ITEMS}
+                                    register={register}
+                                    control={control}
+                                    id="role"
+                                    label="Role"
+                                    isRequired={true}
+                                    name="role"
+                                    className="justify-self-start"
+                                />
                                 <AuthInput
                                     control={control}
                                     name="username"
@@ -149,16 +175,10 @@ export default function LoginPage() {
                                 />
                                 <Stack
                                     direction="row"
-                                    justifyContent="space-between"
+                                    justifyContent="flex-end"
                                     alignItems="center"
                                     width="100%"
                                 >
-                                    <Link
-                                        href="/corporate"
-                                        className="text-sm underline text-secBlue"
-                                    >
-                                        Corporate with us
-                                    </Link>
                                     <Link
                                         href="/forgot-password"
                                         className="text-sm text-black underline"

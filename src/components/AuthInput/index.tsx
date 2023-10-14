@@ -12,24 +12,10 @@ import {
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import type { UseFormRegister } from 'react-hook-form'
+import { IFormInputProps } from '@/types/auth-component'
 
-type IFormInputProps = {
-    label?: String
-    placeholder?: string
+interface InputProps extends IFormInputProps {
     inputType?: InputType
-    id: string
-    helperText?: string
-    helperTextIsError?: boolean
-    name: string
-    control: Control<any>
-    autocomplete: string
-    isRequired?: boolean
-    rules?: object
-    inputProps?: object
-    register: UseFormRegister<any>
-    registerOptions?: object
-    className?: string
-    sx?: object
 }
 
 export default function AuthInput({
@@ -47,7 +33,7 @@ export default function AuthInput({
     registerOptions,
     className,
     sx,
-}: IFormInputProps) {
+}: InputProps) {
     const [showPwd, setShowPwd] = useState<Boolean>(false)
     const [isError, setIsError] = useState<boolean | undefined>(
         helperTextIsError

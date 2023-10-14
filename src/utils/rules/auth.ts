@@ -18,7 +18,7 @@ const getRules = (getValues?: UseFormGetValues<any>) => ({
     },
     username: {
         maxLength: {
-            value: 6,
+            value: 20,
             message: LENGTH_WARNING,
         },
         minLength: {
@@ -28,7 +28,7 @@ const getRules = (getValues?: UseFormGetValues<any>) => ({
     },
     fullname: {
         maxLength: {
-            value: 6,
+            value: 20,
             message: LENGTH_WARNING,
         },
         minLength: {

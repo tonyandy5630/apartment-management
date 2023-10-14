@@ -56,7 +56,6 @@ export default function LoginPage() {
     }, [])
 
     return (
-        // !loading && (
         <div className="background">
             <Container
                 maxWidth="lg"
@@ -162,20 +161,12 @@ export default function LoginPage() {
                         <Typography className="text-black text-lg">
                             Login with
                         </Typography>
-                        <Button
-                            className="bg-blue-500 text-white w-44 hover:border-none hover:rounded-sm hover:bg-blue-500 border-none rounded-sm"
-                            // sx={{
-                            //     ':hover': {
-                            //         textColor: 'black',
-                            //     },
-                            // }}
-                        >
+                        <Button className="bg-blue-500 text-white w-44 hover:border-none hover:rounded-sm hover:bg-blue-500 border-none rounded-sm">
                             <GoogleIcon /> Google
                         </Button>
                     </Stack>
                 </Stack>
             </Container>
         </div>
-        // )
     )
 }

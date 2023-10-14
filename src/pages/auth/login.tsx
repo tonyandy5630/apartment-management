@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '@/styles/login.scss'
-import {
-    Box,
-    Container,
-    Divider,
-    Stack,
-    Typography,
-    Button as MUIButton,
-} from '@mui/material'
+import { Box, Container, Divider, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import getImageURLFromFirebase from '@/utils/firebase/getImage'
 import { useAppDispatch, useAppSelector } from '@/store'

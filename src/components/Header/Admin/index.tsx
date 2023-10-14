@@ -10,7 +10,7 @@ import {
 import React from 'react'
 import styles from '@/styles/homepage.module.scss'
 import Link from 'next/link'
-import HideOnScroll from '../HideOnScroll'
+import HideOnScroll from '../../HideOnScroll'
 
 export default function Header() {
     return (

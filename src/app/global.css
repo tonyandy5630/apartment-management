@@ -8,6 +8,11 @@
     --background-end-rgb: 255, 255, 255;
 }
 
+#__next {
+    width: 100vw;
+    height: 100vh;
+}
+
 body {
     color: rgb(var(--foreground-rgb));
     background: linear-gradient(

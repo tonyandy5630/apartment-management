@@ -2,18 +2,13 @@ import React from 'react'
 import { Button as MUIButton } from '@mui/material'
 
 type ButtonProps = {
-    children?: string
+    children?: React.ReactNode
     className?: string
-    LinkComponent?: any
 }
 
-export default function Button({
-    children,
-    className,
-    LinkComponent,
-}: ButtonProps) {
+export default function Button({ children, className }: ButtonProps) {
     return (
-        <MUIButton variant="outlined" className={className} {...LinkComponent}>
+        <MUIButton variant="outlined" className={className}>
             {children}
         </MUIButton>
     )

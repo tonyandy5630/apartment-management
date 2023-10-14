@@ -22,3 +22,4 @@ const UserSchema = object({
 })
 
 export type UserSchemaType = InferType<typeof UserSchema>
+export default UserSchema

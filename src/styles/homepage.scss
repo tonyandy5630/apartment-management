@@ -88,6 +88,7 @@
 
     .trust-card-title {
         @include homepage.text-gradient($is-to-right: true);
+        background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
@@ -95,6 +96,7 @@
 
 .trust-card-title {
     @include homepage.text-gradient($is-to-right: false);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

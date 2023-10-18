@@ -17,4 +17,5 @@ export const getAccessTokenFromLS = () => {
         // Perform localStorage action
         localStorage.getItem('access_token') || ''
     }
+    return ''
 }

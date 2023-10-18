@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.3.2",
     "@mui/icons-material": "^5.14.13",
     "@mui/material": "^5.14.13",
+    "@mui/x-data-grid": "^6.16.2",
     "@mui/x-date-pickers": "^6.16.2",
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^4.32.0",

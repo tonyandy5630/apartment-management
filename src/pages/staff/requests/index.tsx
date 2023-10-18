@@ -1,27 +1,28 @@
 import '@/styles/request-management.scss'
 import StaffLayout from '@/components/Layout/Staff'
-import { InputLabel, Stack, TextField, Typography } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import FilterIcon from '@mui/icons-material/FilterAlt'
-// import { DemoContainer } from '@mui/
 import React, { useRef, useState } from 'react'
 import { MenuItemType } from '@/types/auth-component'
-import { DatePicker } from '@mui/x-date-pickers'
-import Input from '@/components/Input'
 import SearchIcon from '@mui/icons-material/Search'
 import requestFilterSchema, {
     RequestFilterSchemaType,
 } from '@/utils/schemas/requestFilterSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
-import {
-    SubmitHandler,
-    useForm,
-    Controller,
-    FormProvider,
-} from 'react-hook-form'
+import Table from '@/components/Table'
+import { SubmitHandler, useForm, FormProvider } from 'react-hook-form'
 import AuthSelect from '@/components/AuthInput/Select'
 import MyDatePicker from '@/components/AuthInput/DatePicker'
-import dayjs from 'dayjs'
 import AuthInput from '@/components/AuthInput'
+import {
+    GridColDef,
+    GridEventListener,
+    GridValueGetterParams,
+} from '@mui/x-data-grid'
+import { RequestStatus } from '@/types/request'
+import { DateToString } from '@/utils/dayjs'
+import dayjs from 'dayjs'
+import { useRouter } from 'next/router'
 
 const STATUS_iTEM: Array<MenuItemType> = [
     {
@@ -45,7 +46,62 @@ const APARTMENT_TYPE: Array<MenuItemType> = [
     },
 ]
 
+function createData(
+    id: number,
+    apartmentName: string,
+    owner: string,
+    bookingDate: Date,
+    endDate: Date,
+    packageRequested: string,
+    status: RequestStatus,
+    addOnServiceName?: string
+) {
+    const formatBookingDate = DateToString(bookingDate)
+    const formatEndDate = DateToString(endDate)
+    return {
+        id,
+        apartmentName,
+        owner,
+        bookingDate: formatBookingDate,
+        endDate: formatEndDate,
+        packageRequested,
+        addOnServiceName,
+        status,
+    }
+}
+
+const demoRows = [
+    createData(
+        1,
+        'Riverside Apartment',
+        'Bui Thanh Tu',
+        new Date(),
+        new Date(),
+        'Cleaning Services',
+        'Pending'
+    ),
+    createData(
+        2,
+        'Riverside Apartment',
+        'Bui Thanh Tu',
+        new Date(),
+        new Date(),
+        'Cleaning Services',
+        'Pending'
+    ),
+    createData(
+        3,
+        'Riverside Apartment',
+        'Nguyen Thi Hang Nga',
+        new Date(),
+        new Date(),
+        'Cleaning Services',
+        'Pending'
+    ),
+]
+
 export default function RequestManagementPage() {
+    const router = useRouter()
     const myForm = useForm<RequestFilterSchemaType>({
         defaultValues: {},
         resolver: yupResolver(requestFilterSchema),
@@ -61,6 +117,8 @@ export default function RequestManagementPage() {
     } = myForm
     const submitButton = useRef<any>()
     const [value, setValue] = useState()
+
+    // const row =
 
     const onSubmit: SubmitHandler<RequestFilterSchemaType> = async (data) => {
         console.log(data)
@@ -90,7 +148,25 @@ export default function RequestManagementPage() {
         // }
     }
 
-    console.log(getValues('endDate'))
+    const columns: GridColDef[] = [
+        { field: 'id', headerName: 'ID', width: 70 },
+        { field: 'apartmentName', headerName: 'Apartment Name', width: 250 },
+        {
+            field: 'owner',
+            headerName: 'Owner',
+            width: 200,
+        },
+        { field: 'bookingDate', headerName: 'Booking date', width: 170 },
+        { field: 'endDate', headerName: 'End date', width: 170 },
+
+        {
+            field: 'packageRequested',
+            headerName: 'Package Request',
+            width: 200,
+        },
+        { field: 'addOnServiceName', headerName: 'Add-on Service', width: 200 },
+        { field: 'status', headerName: 'Status', width: 90 },
+    ]
 
     return (
         <StaffLayout title="Request Management">
@@ -176,6 +252,7 @@ export default function RequestManagementPage() {
                     </button>
                 </form>
             </FormProvider>
+            <Table rows={demoRows} columns={columns} />
         </StaffLayout>
     )
 }

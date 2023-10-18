@@ -8,7 +8,6 @@ import {
     Typography,
 } from '@mui/material'
 import React from 'react'
-import styles from '@/styles/homepage.module.scss'
 import Link from 'next/link'
 import HideOnScroll from '../../HideOnScroll'
 
@@ -52,6 +51,7 @@ export default function Header() {
                         </Container>
                     </AppBar>
                 </HideOnScroll>
+                <Box sx={{ height: '64px', width: '100vw' }}></Box>
             </Box>
         </>
     )

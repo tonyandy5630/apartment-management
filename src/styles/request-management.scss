@@ -1,0 +1,18 @@
+@use "variables/main";
+
+label {
+    font-family: Montserrat, sans-serif;
+    font-size: 11px;
+}
+
+.date-picker {
+    border-radius: 3px;
+    font-family: Montserrat, sans-serif;
+    &:focus {
+        outline: main.$primary;
+        border: 2px solid main.$primary;
+        label {
+            color: white;
+        }
+    }
+}

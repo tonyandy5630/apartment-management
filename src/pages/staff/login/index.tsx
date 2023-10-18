@@ -13,7 +13,6 @@ import Link from 'next/link'
 import Button from '@/components/Button'
 import GoogleIcon from '@/components/Icons/Google'
 import AuthSelect from '@/components/AuthInput/Select'
-import { Role } from '@/types/auth'
 import { MenuItemType } from '@/types/auth-component'
 import { MANAGER, STAFF } from '@/constant/auth'
 
@@ -141,7 +140,7 @@ export default function LoginPage() {
                                     label="Role"
                                     isRequired={true}
                                     name="role"
-                                    className="justify-self-start"
+                                    className="justify-self-start h-[2.3rem]"
                                 />
                                 <AuthInput
                                     control={control}

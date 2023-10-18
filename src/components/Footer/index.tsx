@@ -1,3 +1,4 @@
+import '@/styles/footer.scss'
 import { Container, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import React from 'react'
@@ -19,12 +20,18 @@ export default function Footer() {
                             alt="Company Logo"
                         />
                         <Stack>
-                            <Typography>Apartee Company</Typography>
-                            <Typography>Contact us: +1233456434</Typography>
-                            <Typography>Email: apartee@company.vn</Typography>
+                            <Typography className="footer-text">
+                                Apartee Company
+                            </Typography>
+                            <Typography className="footer-text">
+                                Contact us: +1233456434
+                            </Typography>
+                            <Typography className="footer-text">
+                                Email: apartee@company.vn
+                            </Typography>
                         </Stack>
                     </Stack>
-                    <Typography>
+                    <Typography className="footer-text">
                         &copy; 2023 Apartee Company. All Rights Reserved.
                     </Typography>
                 </Stack>

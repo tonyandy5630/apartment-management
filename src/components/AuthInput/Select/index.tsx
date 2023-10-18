@@ -11,6 +11,9 @@ import React from 'react'
 
 interface SelectProps extends IFormInputProps {
     items: Array<MenuItemType>
+    formClassName?: string
+    hasDefaultValue?: boolean
+    onChange?: Function
 }
 
 export default function AuthSelect({
@@ -28,18 +31,28 @@ export default function AuthSelect({
     registerOptions,
     className,
     sx,
+    formClassName,
+    hasDefaultValue = false,
+    onChange,
 }: SelectProps) {
     const [value, setValue] = React.useState('')
 
     const handleSelectChange = (event: SelectChangeEvent) => {
         setValue(event.target.value)
+        if (onChange) {
+            onChange()
+        }
     }
 
     return (
-        <FormControl sx={{ minWidth: 120 }} className="self-start" size="small">
+        <FormControl
+            sx={{ minWidth: 120 }}
+            className={`${formClassName}`}
+            size="medium"
+        >
             <InputLabel id={id}>{label}</InputLabel>
             <Select
-                className={` text-black rounded-sm h-[2rem]  ${className}`}
+                className={` text-black rounded-sm h-full w-full ${className}`}
                 id={id}
                 {...register(name, registerOptions)}
                 autoComplete={autocomplete}
@@ -49,8 +62,8 @@ export default function AuthSelect({
                     fontSize: 14,
                     ...sx,
                 }}
-                labelId="auth-select"
-                defaultValue={items[0].value}
+                labelId={id}
+                defaultValue={hasDefaultValue ? items[0].value : ''}
                 onChange={handleSelectChange}
             >
                 {items.map((item) => (

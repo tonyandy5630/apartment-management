@@ -17,7 +17,6 @@ const LoginSchema = UserSchema.omit(['email', 'fullname', 'role'])
 
 export default function LoginPage() {
     const dispatch = useAppDispatch()
-
     const [imgURL, setImgURL] = useState<string>('')
     const [logoURL, setLogoURL] = useState<string>('')
     const [loading, setIsLoading] = useState(true)

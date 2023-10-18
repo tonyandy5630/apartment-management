@@ -118,8 +118,6 @@ export default function RequestManagementPage() {
     const submitButton = useRef<any>()
     const [value, setValue] = useState()
 
-    // const row =
-
     const onSubmit: SubmitHandler<RequestFilterSchemaType> = async (data) => {
         console.log(data)
         // const req = await dispatch(loginUser(data))

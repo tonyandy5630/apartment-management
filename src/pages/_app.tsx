@@ -7,6 +7,8 @@ import theme from '@/utils/theme'
 import { Provider } from 'react-redux'
 import { store } from '@/store'
 import '@/app/global.css'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 export default function App({ Component, pageProps }: AppProps) {
     const queryClient = new QueryClient()
@@ -16,7 +18,9 @@ export default function App({ Component, pageProps }: AppProps) {
             <Provider store={store}>
                 <ThemeProvider theme={theme}>
                     <GlobalCssPriority>
-                        <Component {...pageProps} />
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <Component {...pageProps} />
+                        </LocalizationProvider>
                     </GlobalCssPriority>
                 </ThemeProvider>
             </Provider>

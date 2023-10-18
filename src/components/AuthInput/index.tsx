@@ -16,6 +16,8 @@ import { IFormInputProps } from '@/types/auth-component'
 
 interface InputProps extends IFormInputProps {
     inputType?: InputType
+    startAdornment?: React.ReactNode
+    inputClassName?: string
 }
 
 export default function AuthInput({
@@ -32,7 +34,9 @@ export default function AuthInput({
     register,
     registerOptions,
     className,
+    startAdornment,
     sx,
+    inputClassName,
 }: InputProps) {
     const [showPwd, setShowPwd] = useState<Boolean>(false)
     const [isError, setIsError] = useState<boolean | undefined>(
@@ -52,10 +56,14 @@ export default function AuthInput({
     }
 
     return (
-        <FormControl component={Stack} className="w-full" required={isRequired}>
+        <FormControl
+            component={Stack}
+            required={isRequired}
+            className={`${className}`}
+        >
             <InputLabel htmlFor={id}>{label}</InputLabel>
             <OutlinedInput
-                className={`bg-white text-black rounded-sm h-[3rem] ${className}`}
+                className={`text-black rounded-sm h-[3rem] ${inputClassName}`}
                 id={id}
                 {...register(name, registerOptions)}
                 autoComplete={autocomplete}
@@ -68,6 +76,7 @@ export default function AuthInput({
                 }}
                 placeholder={placeholder}
                 type={inputType === 'password' && showPwd ? '' : inputType}
+                startAdornment={startAdornment}
                 endAdornment={
                     inputType === 'password' ? (
                         <InputAdornment position="end" className="mr-3">

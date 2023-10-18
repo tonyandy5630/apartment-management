@@ -1,0 +1,8 @@
+@use "variables/main";
+
+.background {
+    background: main.$background;
+    height: 100%;
+    width: 100%;
+    padding: 20px 40px;
+}

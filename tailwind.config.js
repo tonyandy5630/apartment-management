@@ -16,6 +16,7 @@ module.exports = {
                 orange: '#FF8228',
                 secBlue: '#219EBC',
                 lightDark: '#464646',
+                skin: '#f5ebe0',
             },
         },
     },

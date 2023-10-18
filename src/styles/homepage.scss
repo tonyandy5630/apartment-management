@@ -1,23 +1,6 @@
 @use "mixin/homepage";
 @use "variables/main";
 
-@import url("https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400;16..144,500;16..144,700&display=swap");
-
-.logo-title {
-    font-family: "Montagu Slab", serif;
-    font-size: 40px;
-}
-
-.link {
-    font-family: "Montserrat", sans-serif;
-    margin: 0 5px;
-    font-size: 20px;
-}
-
-.link:hover {
-    text-decoration: underline;
-}
-
 .section {
     background: black;
 }

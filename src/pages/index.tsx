@@ -1,4 +1,5 @@
 import '@/styles/homepage.scss'
+import '@/styles/header.scss'
 import React from 'react'
 import Header from '@/components/Header/Admin'
 import Hero from '@/components/Hero'

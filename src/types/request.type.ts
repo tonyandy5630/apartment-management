@@ -1,27 +1,22 @@
-import AddonService from './add-on-services'
+import AddOnService from './add-on-services.type'
 
 type Request = {
     id: number
-    apartmentName: string
-    owner: string
-    bookingDate: Date
-    endDate: Date
-    packageRequested: string
-    feedback?: string
-    addOnServiceName?: string
-    status: RequestStatus
+    rdDetail: RequestDetail
+    requestDescription?: string
 }
 
 type RequestDetail = {
-    id: number
+    rDId: number
     apartmentName: string
     owner: string
     packageRequested: string
     packagePrice: number
     bookingDate: Date
     endDate: Date
-    description?: string
-    addOnService: AddonService
+    addOnServices?: Array<AddOnService>
+    feedback?: string
+    status: RequestStatus
 }
 
 export type RequestStatus = 'Pending' | 'Working' | 'Done'

@@ -1,5 +1,5 @@
 import { ResponseAPI, SuccessResponse } from '@/types'
-import { AuthResponse } from '@/types/auth'
+import { AuthResponse } from '@/types/auth.type'
 import axios, { AxiosError, HttpStatusCode, type AxiosInstance } from 'axios'
 import { toast } from 'react-toastify'
 import { clearLS, getAccessTokenFromLS, setAccessTokenToLS } from './auth'

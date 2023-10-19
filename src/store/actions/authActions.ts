@@ -1,6 +1,6 @@
 import { loginAPI } from '@/apis/auth.api'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { User } from '@/types/auth'
+import { User } from '@/types/auth.type'
 import { ResponseAPI } from '@/types'
 import { toast } from 'react-toastify'
 import { error } from 'console'

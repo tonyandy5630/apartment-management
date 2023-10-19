@@ -1,7 +1,7 @@
 import '@/styles/homepage.scss'
 import '@/styles/header.scss'
 import React from 'react'
-import Header from '@/components/Header/Admin'
+import Header from '@/components/Header/Homepage'
 import Hero from '@/components/Hero'
 import Section from '@/components/Section'
 import { slogan, joinCall, subSlogan } from '@/constant/homepage'

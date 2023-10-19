@@ -1,12 +1,21 @@
+import AddOnService from './add-on-services.type'
+
 type Request = {
     id: number
+    rdDetail: RequestDetail
+    requestDescription?: string
+}
+
+type RequestDetail = {
+    rDId: number
     apartmentName: string
     owner: string
+    packageRequested: string
+    packagePrice: number
     bookingDate: Date
     endDate: Date
-    packageRequested: string
+    addOnServices?: Array<AddOnService>
     feedback?: string
-    addOnServiceName?: string
     status: RequestStatus
 }
 

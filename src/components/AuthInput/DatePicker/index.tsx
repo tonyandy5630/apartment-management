@@ -1,4 +1,4 @@
-import { IFormInputProps } from '@/types/auth-component'
+import { IFormInputProps } from '@/types/auth-component.type'
 import React, { SyntheticEvent, useState } from 'react'
 import { Controller, UseFormRegister, useFormContext } from 'react-hook-form'
 import ReactDatePicker from 'react-datepicker'

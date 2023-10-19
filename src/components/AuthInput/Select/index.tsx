@@ -1,5 +1,4 @@
-import { STAFF } from '@/constant/auth'
-import { IFormInputProps, MenuItemType } from '@/types/auth-component'
+import { IFormInputProps, MenuItemType } from '@/types/auth-component.type'
 import {
     FormControl,
     InputLabel,

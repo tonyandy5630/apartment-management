@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { loginUser } from '../actions/authActions'
-import { User } from '@/types/auth'
+import { User } from '@/types/auth.type'
 import { toast } from 'react-toastify'
 
 const initialState: {

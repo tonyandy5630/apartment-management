@@ -13,7 +13,7 @@ import Link from 'next/link'
 import Button from '@/components/Button'
 import GoogleIcon from '@/components/Icons/Google'
 import AuthSelect from '@/components/AuthInput/Select'
-import { MenuItemType } from '@/types/auth-component'
+import { MenuItemType } from '@/types/auth-component.type'
 import { MANAGER, STAFF } from '@/constant/auth'
 
 const LoginSchema = UserSchema.omit(['email', 'fullname'])

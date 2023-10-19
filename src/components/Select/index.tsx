@@ -6,7 +6,7 @@ import {
     Select,
     SelectChangeEvent,
 } from '@mui/material'
-import { MenuItemType } from '@/types/auth-component'
+import { MenuItemType } from '@/types/auth-component.type'
 
 type Props = {
     id: string

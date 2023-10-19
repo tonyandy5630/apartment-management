@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Request, { RequestStatus } from '@/types/request'
+import Request, { RequestStatus } from '@/types/request.type'
 import {
     DataGrid,
     GridColDef,

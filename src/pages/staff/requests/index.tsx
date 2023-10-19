@@ -3,7 +3,7 @@ import StaffLayout from '@/components/Layout/Staff'
 import { Stack, Typography } from '@mui/material'
 import FilterIcon from '@mui/icons-material/FilterAlt'
 import React, { useRef, useState } from 'react'
-import { MenuItemType } from '@/types/auth-component'
+import { MenuItemType } from '@/types/auth-component.type'
 import SearchIcon from '@mui/icons-material/Search'
 import requestFilterSchema, {
     RequestFilterSchemaType,
@@ -19,7 +19,7 @@ import {
     GridEventListener,
     GridValueGetterParams,
 } from '@mui/x-data-grid'
-import { RequestStatus } from '@/types/request'
+import { RequestStatus } from '@/types/request.type'
 import { DateToString } from '@/utils/dayjs'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'

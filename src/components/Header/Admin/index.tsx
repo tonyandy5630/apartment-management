@@ -51,7 +51,7 @@ export default function Header() {
                         </Container>
                     </AppBar>
                 </HideOnScroll>
-                <Box sx={{ height: '64px', width: '100vw' }}></Box>
+                <Box sx={{ height: '64px' }}></Box>
             </Box>
         </>
     )

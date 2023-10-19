@@ -15,14 +15,11 @@ export type TableHeader = {
 type Props = {
     rows: Array<any>
     columns: GridColDef[]
+    handleRowDlClick?: GridEventListener<'rowDoubleClick'>
 }
 
-export default function BasicTable({ rows, columns }: Props) {
+export default function BasicTable({ rows, columns, handleRowDlClick }: Props) {
     const router = useRouter()
-
-    const handleRowDlClick: GridEventListener<'rowDoubleClick'> = (params) => {
-        router.push(`/staff/requests/${params.row.id}`)
-    }
 
     return (
         <div style={{ height: 400, width: '100%' }}>

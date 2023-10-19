@@ -5,7 +5,7 @@ import React from 'react'
 import Logo from '@/../public/logo.png'
 export default function Footer() {
     return (
-        <div className="min-w-screen min-h-[100px] bg-black border-t absolute bottom-0 right-0 left-0">
+        <div className="min-w-screen min-h-[100px] bg-black border-t">
             <Container>
                 <Stack
                     direction="row"

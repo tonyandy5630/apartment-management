@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/store'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import UserSchema, { UserSchemaType } from '@/utils/schemas/userSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
-import AuthInput from '@/components/AuthInput'
+import FormInput from '@/components/FormInput'
 import _ from 'lodash'
 import Link from 'next/link'
 import Button from '@/components/Button'
@@ -116,7 +116,7 @@ export default function LoginPage() {
                                 className="flex flex-col items-center justify-center gap-y-5"
                                 onSubmit={handleSubmit(onSubmit)}
                             >
-                                <AuthInput
+                                <FormInput
                                     control={control}
                                     name="username"
                                     id="username"
@@ -130,7 +130,7 @@ export default function LoginPage() {
                                         errors.username !== undefined
                                     }
                                 />
-                                <AuthInput
+                                <FormInput
                                     control={control}
                                     name="password"
                                     id="password"

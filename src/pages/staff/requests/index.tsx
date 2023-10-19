@@ -11,42 +11,16 @@ import requestFilterSchema, {
 import { yupResolver } from '@hookform/resolvers/yup'
 import Table from '@/components/Table'
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form'
-import AuthSelect from '@/components/AuthInput/Select'
-import MyDatePicker from '@/components/AuthInput/DatePicker'
-import AuthInput from '@/components/AuthInput'
-import {
-    GridColDef,
-    GridEventListener,
-    GridValueGetterParams,
-} from '@mui/x-data-grid'
+import FormSelect from '@/components/FormInput/Select'
+import MyDatePicker from '@/components/FormInput/DatePicker'
+import FormInput from '@/components/FormInput'
+import { GridColDef, GridEventListener } from '@mui/x-data-grid'
 import { RequestStatus } from '@/types/request.type'
 import { DateToString } from '@/utils/dayjs'
-import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
+import { APARTMENT_TYPE, STATUS_iTEM, demoRows } from '@/utils/demoData'
 
-const STATUS_iTEM: Array<MenuItemType> = [
-    {
-        name: 'Pending',
-        value: '0',
-    },
-    {
-        name: 'Working',
-        value: '1',
-    },
-]
-
-const APARTMENT_TYPE: Array<MenuItemType> = [
-    {
-        name: '1PN, 2NVS',
-        value: '0',
-    },
-    {
-        name: '2PN, 2NVS',
-        value: '1',
-    },
-]
-
-function createData(
+export function createData(
     id: number,
     apartmentName: string,
     owner: string,
@@ -70,36 +44,6 @@ function createData(
     }
 }
 
-const demoRows = [
-    createData(
-        1,
-        'Riverside Apartment',
-        'Bui Thanh Tu',
-        new Date(),
-        new Date(),
-        'Cleaning Services',
-        'Pending'
-    ),
-    createData(
-        2,
-        'Riverside Apartment',
-        'Bui Thanh Tu',
-        new Date(),
-        new Date(),
-        'Cleaning Services',
-        'Pending'
-    ),
-    createData(
-        3,
-        'Riverside Apartment',
-        'Nguyen Thi Hang Nga',
-        new Date(),
-        new Date(),
-        'Cleaning Services',
-        'Pending'
-    ),
-]
-
 export default function RequestManagementPage() {
     const router = useRouter()
     const myForm = useForm<RequestFilterSchemaType>({
@@ -117,6 +61,17 @@ export default function RequestManagementPage() {
     } = myForm
     const submitButton = useRef<any>()
     const [value, setValue] = useState()
+
+    const handleRowDlClick: GridEventListener<'rowDoubleClick'> = (params) => {
+        if ((params.row.status as RequestStatus) === 'Pending') {
+            router.push(`/staff/requests/${params.row.id}`)
+        }
+        if ((params.row.status as RequestStatus) === 'Working') {
+            router.push(
+                `/staff/requests/${params.row.id}/update-log/${params.row.id}`
+            )
+        }
+    }
 
     const onSubmit: SubmitHandler<RequestFilterSchemaType> = async (data) => {
         console.log(data)
@@ -193,7 +148,7 @@ export default function RequestManagementPage() {
                                 Filter
                                 <FilterIcon />
                             </Typography>
-                            <AuthSelect
+                            <FormSelect
                                 control={control}
                                 register={register}
                                 name="status"
@@ -222,7 +177,7 @@ export default function RequestManagementPage() {
                                     submitButton.current.click()
                                 }
                             />
-                            <AuthSelect
+                            <FormSelect
                                 id="filter-apartment-type"
                                 label="Apartment Type"
                                 control={control}
@@ -233,7 +188,7 @@ export default function RequestManagementPage() {
                                 onChange={() => submitButton.current.click()}
                             />
                         </Stack>
-                        <AuthInput
+                        <FormInput
                             control={control}
                             register={register}
                             name={'search-string'}
@@ -250,7 +205,11 @@ export default function RequestManagementPage() {
                     </button>
                 </form>
             </FormProvider>
-            <Table rows={demoRows} columns={columns} />
+            <Table
+                rows={demoRows}
+                columns={columns}
+                handleRowDlClick={handleRowDlClick}
+            />
         </StaffLayout>
     )
 }

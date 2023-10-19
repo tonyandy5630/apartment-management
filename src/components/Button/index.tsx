@@ -4,7 +4,7 @@ import { Button as MUIButton } from '@mui/material'
 type ButtonProps = {
     children?: React.ReactNode
     className?: string
-    type?: 'submit'
+    type?: 'submit' | 'button'
     handleButtonClick?: () => void
     variant?: 'primary' | 'secondary'
 }
@@ -23,7 +23,7 @@ export default function Button({
                     type={type}
                     variant="contained"
                     sx={{ border: '1px solid black' }}
-                    className={` bg-orange  ${className}`}
+                    className={` bg-orange min-w-[110px]  ${className}`}
                     onClick={handleButtonClick}
                     disableElevation
                 >
@@ -48,7 +48,7 @@ export default function Button({
                     type={type}
                     variant="contained"
                     sx={{ border: '1px solid black' }}
-                    className={` bg-orange  ${className}`}
+                    className={` bg-orange min-w-[110px]  ${className}`}
                     onClick={handleButtonClick}
                     disableElevation
                 >

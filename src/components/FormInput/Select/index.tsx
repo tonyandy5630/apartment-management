@@ -15,7 +15,7 @@ interface SelectProps extends IFormInputProps {
     onChange?: Function
 }
 
-export default function AuthSelect({
+export default function FormSelect({
     items,
     label,
     helperText,

@@ -7,12 +7,12 @@ import { useAppDispatch, useAppSelector } from '@/store'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import UserSchema, { UserSchemaType } from '@/utils/schemas/userSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
-import AuthInput from '@/components/AuthInput'
+import FormInput from '@/components/FormInput'
 import _ from 'lodash'
 import Link from 'next/link'
 import Button from '@/components/Button'
 import GoogleIcon from '@/components/Icons/Google'
-import AuthSelect from '@/components/AuthInput/Select'
+import FormSelect from '@/components/FormInput/Select'
 import { MenuItemType } from '@/types/auth-component.type'
 import { MANAGER, STAFF } from '@/constant/auth'
 
@@ -132,7 +132,7 @@ export default function LoginPage() {
                                 onSubmit={handleSubmit(onSubmit)}
                                 className="flex flex-col items-center justify-center gap-y-3"
                             >
-                                <AuthSelect
+                                <FormSelect
                                     items={ROLE_ITEMS}
                                     register={register}
                                     control={control}
@@ -142,7 +142,7 @@ export default function LoginPage() {
                                     name="role"
                                     className="justify-self-start h-[2.3rem]"
                                 />
-                                <AuthInput
+                                <FormInput
                                     control={control}
                                     name="username"
                                     id="username"
@@ -156,7 +156,7 @@ export default function LoginPage() {
                                         errors.username !== undefined
                                     }
                                 />
-                                <AuthInput
+                                <FormInput
                                     control={control}
                                     name="password"
                                     id="password"

@@ -1,33 +1,12 @@
 import Button from '@/components/Button'
 import StaffLayout from '@/components/Layout/Staff'
 import RequestDetailContainer from '@/components/RequestDetailContainer'
+import RequestTitle from '@/components/RequestDetailContainer/RequestApartmentTitle'
 import Request, { RequestDetail } from '@/types/request.type'
-import { DateToString } from '@/utils/dayjs'
-import getRequestStatusColor from '@/utils/getColor'
-import RequestStatusIcon from '@/utils/getIcons'
+import { demoRequest, demoRequestDetail } from '@/utils/demoData'
 import { Box, Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import React from 'react'
-
-const demoRequestDetail: RequestDetail = {
-    rDId: 1,
-    requestId: 1,
-    apartmentName: 'Riverside Apartment',
-    bookingDate: new Date(),
-    endDate: new Date(),
-    owner: 'Bui Thanh Tu',
-    packagePrice: 300,
-    packageRequested: 'Cleaning Package',
-    status: 'Pending',
-    addOnServices: [],
-    feedback: 'Good work',
-}
-
-const demoRequest: Request = {
-    id: 1,
-    rdDetail: demoRequestDetail,
-    requestDescription: 'Test',
-}
 
 export default function RequestDetail() {
     const router = useRouter()
@@ -47,49 +26,11 @@ export default function RequestDetail() {
 
     return (
         <StaffLayout title="Request Detail">
-            <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-                className="w-[48rem] mb-5"
+            <RequestTitle
+                apartmentName={demoRequestDetail.apartmentName}
+                owner={demoRequestDetail.owner}
+                status={demoRequestDetail.status}
             >
-                <Box sx={{ width: '47%', height: '100%' }}>
-                    <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        width="100%"
-                    >
-                        <Typography
-                            variant="h5"
-                            className="inline-block"
-                            fontWeight="500"
-                        >
-                            {demoRequestDetail.apartmentName}
-                        </Typography>
-                        <Box>
-                            <Typography
-                                fontSize="15px"
-                                className="w-fit inline-block mr-1"
-                                color={getRequestStatusColor(
-                                    demoRequestDetail.status
-                                )}
-                            >
-                                {demoRequestDetail.status}
-                            </Typography>
-                            <RequestStatusIcon
-                                status={demoRequestDetail.status}
-                                size="small"
-                                color={getRequestStatusColor(
-                                    demoRequestDetail.status
-                                )}
-                            />
-                        </Box>
-                    </Stack>
-                    <Typography fontSize="15px">
-                        {demoRequestDetail.owner}
-                    </Typography>
-                </Box>
                 <Button variant="primary" handleButtonClick={handleCreateLog}>
                     {(() => {
                         switch (demoRequestDetail.status) {
@@ -102,7 +43,7 @@ export default function RequestDetail() {
                         }
                     })()}
                 </Button>
-            </Stack>
+            </RequestTitle>
             <Stack
                 direction="row"
                 justifyContent="space-between"

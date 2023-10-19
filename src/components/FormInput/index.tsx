@@ -20,7 +20,7 @@ interface InputProps extends IFormInputProps {
     inputClassName?: string
 }
 
-export default function AuthInput({
+export default function FormInput({
     label,
     helperText,
     placeholder,

@@ -3,7 +3,8 @@ import '@/styles/header.scss'
 import React from 'react'
 import StaffHeader from '@/components/Header/Staff'
 import Footer from '@/components/Footer'
-import { Typography } from '@mui/material'
+import { Container, Typography } from '@mui/material'
+import MyContainer from '@/components/Container'
 
 type Props = {
     children?: React.ReactNode
@@ -14,14 +15,17 @@ export default function StaffLayout({ children, title }: Props) {
         <>
             <StaffHeader />
             <main className="background">
-                <Typography
-                    textTransform="capitalize"
-                    fontWeight={600}
-                    variant="h4"
-                >
-                    {title}
-                </Typography>
-                {children}
+                <MyContainer>
+                    <Typography
+                        textTransform="capitalize"
+                        fontWeight={600}
+                        variant="h4"
+                        gutterBottom
+                    >
+                        {title}
+                    </Typography>
+                    {children}
+                </MyContainer>
             </main>
             <Footer />
         </>

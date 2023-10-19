@@ -5,16 +5,55 @@ type ButtonProps = {
     children?: React.ReactNode
     className?: string
     type?: 'submit'
+    handleButtonClick?: () => void
+    variant?: 'primary' | 'secondary'
 }
 
 export default function Button({
     children,
     className,
     type = 'submit',
+    variant = 'primary',
+    handleButtonClick,
 }: ButtonProps) {
-    return (
-        <MUIButton type={type} variant="outlined" className={className}>
-            {children}
-        </MUIButton>
-    )
+    switch (variant) {
+        case 'primary':
+            return (
+                <MUIButton
+                    type={type}
+                    variant="contained"
+                    sx={{ border: '1px solid black' }}
+                    className={` bg-orange  ${className}`}
+                    onClick={handleButtonClick}
+                    disableElevation
+                >
+                    {children}
+                </MUIButton>
+            )
+        case 'secondary':
+            return (
+                <MUIButton
+                    type={type}
+                    variant="outlined"
+                    className={`${className}`}
+                    onClick={handleButtonClick}
+                    disableElevation
+                >
+                    {children}
+                </MUIButton>
+            )
+        default:
+            return (
+                <MUIButton
+                    type={type}
+                    variant="contained"
+                    sx={{ border: '1px solid black' }}
+                    className={` bg-orange  ${className}`}
+                    onClick={handleButtonClick}
+                    disableElevation
+                >
+                    {children}
+                </MUIButton>
+            )
+    }
 }

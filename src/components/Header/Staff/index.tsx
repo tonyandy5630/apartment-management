@@ -1,3 +1,4 @@
+import MyContainer from '@/components/Container'
 import HideOnScroll from '@/components/HideOnScroll'
 import { useAppDispatch, useAppSelector } from '@/store'
 import {
@@ -24,11 +25,12 @@ export default function StaffHeader() {
                 <Box sx={{ height: '64px' }}></Box>
                 <HideOnScroll>
                     <AppBar>
-                        <Container disableGutters>
+                        <MyContainer>
                             <Stack
                                 component={Toolbar}
                                 justifyContent="space-between"
                                 direction="row"
+                                className="p-0"
                             >
                                 <Stack direction="row">
                                     <Typography className={`logo-title mr-6`}>
@@ -72,7 +74,7 @@ export default function StaffHeader() {
                                     </Stack>
                                 </Stack>
                             </Stack>
-                        </Container>
+                        </MyContainer>
                     </AppBar>
                 </HideOnScroll>
             </Box>

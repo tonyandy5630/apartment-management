@@ -13,8 +13,6 @@ import Link from 'next/link'
 import Button from '@/components/Button'
 import GoogleIcon from '@/components/Icons/Google'
 
-const LoginSchema = UserSchema.omit(['email', 'fullname', 'role'])
-
 export default function LoginPage() {
     const dispatch = useAppDispatch()
     const [imgURL, setImgURL] = useState<string>('')
@@ -29,12 +27,12 @@ export default function LoginPage() {
         control,
         setError,
         formState: { errors },
-    } = useForm<Omit<UserSchemaType, 'email' | 'fullname' | 'role'>>({
+    } = useForm<UserSchemaType>({
         defaultValues: {
-            username: '',
+            email: '',
             password: '',
         },
-        resolver: yupResolver(LoginSchema),
+        resolver: yupResolver(UserSchema),
     })
 
     useEffect(() => {
@@ -125,9 +123,9 @@ export default function LoginPage() {
                                     isRequired={true}
                                     register={register}
                                     placeholder="Example: tonyandy789"
-                                    helperText={errors.username?.message}
+                                    helperText={errors.email?.message}
                                     helperTextIsError={
-                                        errors.username !== undefined
+                                        errors.email !== undefined
                                     }
                                 />
                                 <FormInput

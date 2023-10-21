@@ -62,7 +62,7 @@ export default function FormSelect({
                     ...sx,
                 }}
                 labelId={id}
-                defaultValue={hasDefaultValue ? items[0].value : ''}
+                defaultValue={hasDefaultValue ? items[0].value.toString() : ''}
                 onChange={handleSelectChange}
             >
                 {items.map((item) => (

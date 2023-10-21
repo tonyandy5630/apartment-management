@@ -149,6 +149,7 @@ export default function RequestManagementPage() {
                 if (isInEditMode) {
                     return [
                         <GridActionsCellItem
+                            key="edit-cell"
                             icon={<SaveIcon />}
                             label="Save"
                             sx={{
@@ -157,6 +158,7 @@ export default function RequestManagementPage() {
                             onClick={handleSaveClick(id)}
                         />,
                         <GridActionsCellItem
+                            key="clear"
                             icon={<ClearIcon />}
                             label="Cancel"
                             className="textPrimary"
@@ -168,6 +170,7 @@ export default function RequestManagementPage() {
 
                 return [
                     <GridActionsCellItem
+                        key="edit"
                         icon={<EditIcon />}
                         label="Edit"
                         className="textPrimary"
@@ -175,6 +178,7 @@ export default function RequestManagementPage() {
                         color="inherit"
                     />,
                     <GridActionsCellItem
+                        key="detail"
                         icon={<InfoIcon />}
                         label="Details"
                         className="textPrimary"

@@ -1,15 +1,7 @@
 import MyContainer from '@/components/Container'
 import HideOnScroll from '@/components/HideOnScroll'
 import { useAppDispatch, useAppSelector } from '@/store'
-import {
-    AppBar,
-    Avatar,
-    Box,
-    Container,
-    Stack,
-    Toolbar,
-    Typography,
-} from '@mui/material'
+import { AppBar, Avatar, Box, Stack, Toolbar, Typography } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'
 
@@ -41,7 +33,10 @@ export default function StaffHeader() {
                                         component={Box}
                                         alignSelf="center"
                                     >
-                                        <Link className="link" href="/request">
+                                        <Link
+                                            className="link"
+                                            href="/staff/requests"
+                                        >
                                             Requests
                                         </Link>
                                         <Link className="link" href="/log">
@@ -63,7 +58,7 @@ export default function StaffHeader() {
                                     >
                                         <Typography fontSize="15px">
                                             {user !== undefined
-                                                ? user.fullname
+                                                ? user.name
                                                 : 'Bui Thanh Tu'}
                                         </Typography>
                                         <Typography fontSize="13px">

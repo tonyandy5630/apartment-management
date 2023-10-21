@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loginUser } from '../actions/authActions'
+import { loginStaff } from '../actions/authActions'
 import { User } from '@/types/auth.type'
 import { toast } from 'react-toastify'
 
@@ -20,10 +20,10 @@ export const userSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(loginUser.pending, (state, { payload }) => {
+        builder.addCase(loginStaff.pending, (state, { payload }) => {
             state.loading = true
         }),
-            builder.addCase(loginUser.fulfilled, (state, { payload }) => {
+            builder.addCase(loginStaff.fulfilled, (state, { payload }) => {
                 state.loading = false
                 state.success = true
                 if (payload?.data) {
@@ -32,7 +32,7 @@ export const userSlice = createSlice({
                     state.user = payload?.data
                 }
             }),
-            builder.addCase(loginUser.rejected, (state, { payload }) => {
+            builder.addCase(loginStaff.rejected, (state, { payload }) => {
                 state.loading = false
                 state.error = true
                 toast.error('Login Error')

@@ -15,17 +15,16 @@ import GoogleIcon from '@/components/Icons/Google'
 import FormSelect from '@/components/FormInput/Select'
 import { MenuItemType } from '@/types/auth-component.type'
 import { MANAGER, STAFF } from '@/constant/auth'
-
-const LoginSchema = UserSchema.omit(['email', 'fullname'])
+import { loginStaff } from '@/store/actions/authActions'
 
 const ROLE_ITEMS: Array<MenuItemType> = [
     {
-        value: STAFF,
-        name: 'Staff',
+        value: STAFF.id,
+        name: STAFF.name,
     },
     {
-        value: MANAGER,
-        name: 'Manager',
+        value: MANAGER.id,
+        name: MANAGER.name,
     },
 ]
 
@@ -45,12 +44,12 @@ export default function LoginPage() {
         setError,
         watch,
         formState: { errors },
-    } = useForm<Omit<UserSchemaType, 'email' | 'fullname'>>({
+    } = useForm<UserSchemaType>({
         defaultValues: {
-            username: '',
+            email: '',
             password: '',
         },
-        resolver: yupResolver(LoginSchema),
+        resolver: yupResolver(UserSchema),
     })
 
     useEffect(() => {
@@ -64,10 +63,11 @@ export default function LoginPage() {
     }, [])
 
     const onSubmit: SubmitHandler<
-        Omit<UserSchemaType, 'email' | 'fullname'>
+        Omit<UserSchemaType, 'token' | 'name' | 'role' | 'phone'>
     > = async (data) => {
         console.log(data)
-        // const req = await dispatch(loginUser(data))
+        const req = await dispatch(loginStaff(data))
+        console.log(req.payload)
         // if (req.meta.requestStatus === 'fulfilled') {
         //     router.push('/dashboard')
         // }
@@ -130,30 +130,21 @@ export default function LoginPage() {
                         >
                             <form
                                 onSubmit={handleSubmit(onSubmit)}
-                                className="flex flex-col items-center justify-center gap-y-3"
+                                className="flex flex-col items-start justify-center gap-y-3"
                             >
-                                <FormSelect
-                                    items={ROLE_ITEMS}
-                                    register={register}
-                                    control={control}
-                                    id="role"
-                                    label="Role"
-                                    isRequired={true}
-                                    name="role"
-                                    className="justify-self-start h-[2.3rem]"
-                                />
                                 <FormInput
                                     control={control}
-                                    name="username"
-                                    id="username"
+                                    name="email"
+                                    id="email"
                                     autocomplete="on"
-                                    label="Username"
+                                    label="Email"
                                     isRequired={true}
                                     register={register}
                                     placeholder="Example: tonyandy789"
-                                    helperText={errors.username?.message}
+                                    className="w-full"
+                                    helperText={errors.email?.message}
                                     helperTextIsError={
-                                        errors.username !== undefined
+                                        errors.email !== undefined
                                     }
                                 />
                                 <FormInput
@@ -166,7 +157,7 @@ export default function LoginPage() {
                                     isRequired={true}
                                     register={register}
                                     placeholder="Enter password"
-                                    className="m-0 border-red-300 rounded-sm"
+                                    className="m-0 border-red-300 rounded-sm w-full"
                                     helperText={errors.password?.message}
                                     helperTextIsError={
                                         errors.password !== undefined
@@ -185,9 +176,15 @@ export default function LoginPage() {
                                         Forgot password ?
                                     </Link>
                                 </Stack>
-                                <Button className="w-32 text-black border border-black rounded-none bg-orange">
-                                    Login
-                                </Button>
+                                <Stack
+                                    className="w-full"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                >
+                                    <Button className="w-32 text-black border border-black rounded-none bg-orange">
+                                        Login
+                                    </Button>
+                                </Stack>
                             </form>
                         </Box>
                         <Stack width="70%">

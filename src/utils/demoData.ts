@@ -1,6 +1,8 @@
 import { createData } from '@/pages/staff/requests'
 import { MenuItemType } from '@/types/auth-component.type'
 import Request, { RequestDetail } from '@/types/request.type'
+import { GridRowProps, GridRowsProp } from '@mui/x-data-grid'
+import dayjs from 'dayjs'
 
 export const demoRequestDetail: RequestDetail = {
     rDId: 1,
@@ -44,32 +46,48 @@ export const APARTMENT_TYPE: Array<MenuItemType> = [
     },
 ]
 
-export const demoRows = [
-    createData(
-        1,
-        'Riverside Apartment',
-        'Bui Thanh Tu',
-        new Date(),
-        new Date(),
-        'Cleaning Services',
-        'Pending'
-    ),
-    createData(
-        2,
-        'Riverside Apartment',
-        'Bui Thanh Tu',
-        new Date(),
-        new Date(),
-        'Cleaning Services',
-        'Working'
-    ),
-    createData(
-        3,
-        'Riverside Apartment',
-        'Nguyen Thi Hang Nga',
-        new Date(),
-        new Date(),
-        'Cleaning Services',
-        'Pending'
-    ),
+const initialRows: GridRowsProp = [
+    {
+        id: 1,
+        apartmentName: 'RiverSide Apartment',
+        owner: 'Bui Thanh Tu',
+        bookingDate: dayjs(new Date()).format('DD/MM/YYYY'),
+        endDate: dayjs(new Date()).format('DD/MM/YYYY'),
+        packageRequested: 'Cleaning Services',
+        numberOfAddOnServices: 0,
+        status: 'Pending',
+    },
+    {
+        id: 2,
+        apartmentName: 'RiverSide Apartment',
+        owner: 'Nguyen Thi Hang Nga',
+        bookingDate: dayjs(new Date()).format('DD/MM/YYYY'),
+        endDate: dayjs(new Date()).format('DD/MM/YYYY'),
+        packageRequested: 'Cleaning Services',
+        numberOfAddOnServices: 0,
+        status: 'Pending',
+    },
+    {
+        id: 3,
+        apartmentName: 'GoldenRiver Apartment',
+        owner: 'Bui Thanh Tu',
+        bookingDate: dayjs(new Date()).format('DD/MM/YYYY'),
+        endDate: dayjs(new Date()).format('DD/MM/YYYY'),
+        packageRequested: 'Cleaning Services',
+        numberOfAddOnServices: 0,
+        status: 'Working',
+    },
 ]
+
+export const demoTask: MenuItemType[] = [
+    {
+        value: '1',
+        name: 'Cleaning Package',
+    },
+    {
+        value: '2',
+        name: 'Superman Package',
+    },
+]
+
+export const demoRows: any[] = Array.from(initialRows)

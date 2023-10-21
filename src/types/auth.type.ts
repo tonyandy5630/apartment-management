@@ -2,11 +2,11 @@ import { STAFF, MANAGER } from '@/constant/auth'
 import { ResponseAPI, SuccessResponse } from '.'
 
 export type User = {
-    username: string
-    fullname: string
+    name: string
     password: string
     email: string
     token: string
+    phone: string
     role: Role
 }
 
@@ -15,4 +15,4 @@ export type AuthResponse = SuccessResponse<{
     user: User
 }>
 
-export type Role = typeof STAFF | typeof MANAGER
+export type Role = typeof STAFF.id | typeof MANAGER.id

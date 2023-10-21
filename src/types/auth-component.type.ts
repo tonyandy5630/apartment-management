@@ -1,7 +1,7 @@
 import { Control, UseFormRegister } from 'react-hook-form'
 
 export type MenuItemType = {
-    value: string
+    value: string | number
     name: string
 }
 

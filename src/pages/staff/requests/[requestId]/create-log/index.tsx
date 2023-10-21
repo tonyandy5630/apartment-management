@@ -18,15 +18,16 @@ import { AlertColor, Stack } from '@mui/material'
 import ClearIcon from '@mui/icons-material/Delete'
 import SaveIcon from '@mui/icons-material/Save'
 import MySnackBar from '@/components/Alert'
+import { demoRequest, demoTask } from '@/utils/demoData'
 
-const STATUS_iTEM: Array<MenuItemType> = [
-    {
-        name: 'Done',
-        value: '0',
-    },
+const STATUS_ITEM: Array<MenuItemType> = [
     {
         name: 'Working',
         value: '1',
+    },
+    {
+        name: 'Done',
+        value: '0',
     },
 ]
 
@@ -43,23 +44,6 @@ const demoRequestDetail: RequestDetail = {
     addOnServices: [],
     feedback: 'Good work',
 }
-
-const demoRequest: Request = {
-    id: 1,
-    rdDetail: demoRequestDetail,
-    requestDescription: 'Test',
-}
-
-const demoTask: MenuItemType[] = [
-    {
-        value: '1',
-        name: 'Cleaning Package',
-    },
-    {
-        value: '2',
-        name: 'Superman Package',
-    },
-]
 
 const COLUMN = 5
 export default function CreateLogForRequestDetail() {
@@ -201,7 +185,7 @@ export default function CreateLogForRequestDetail() {
                             hasDefaultValue={true}
                             label="Status"
                             id="status-select"
-                            items={STATUS_iTEM}
+                            items={STATUS_ITEM}
                             isRequired={true}
                             formClassName="h-3/5"
                             register={register}

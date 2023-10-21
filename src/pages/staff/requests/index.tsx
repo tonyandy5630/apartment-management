@@ -3,7 +3,6 @@ import StaffLayout from '@/components/Layout/Staff'
 import { Stack, Typography } from '@mui/material'
 import FilterIcon from '@mui/icons-material/FilterAlt'
 import React, { useRef, useState } from 'react'
-import { MenuItemType } from '@/types/auth-component.type'
 import SearchIcon from '@mui/icons-material/Search'
 import requestFilterSchema, {
     RequestFilterSchemaType,
@@ -14,11 +13,24 @@ import { SubmitHandler, useForm, FormProvider } from 'react-hook-form'
 import FormSelect from '@/components/FormInput/Select'
 import MyDatePicker from '@/components/FormInput/DatePicker'
 import FormInput from '@/components/FormInput'
-import { GridColDef, GridEventListener } from '@mui/x-data-grid'
+import {
+    GridActionsCellItem,
+    GridColDef,
+    GridEventListener,
+    GridRowEditStopReasons,
+    GridRowId,
+    GridRowModel,
+    GridRowModes,
+    GridRowModesModel,
+} from '@mui/x-data-grid'
 import { RequestStatus } from '@/types/request.type'
 import { DateToString } from '@/utils/dayjs'
 import { useRouter } from 'next/router'
 import { APARTMENT_TYPE, STATUS_iTEM, demoRows } from '@/utils/demoData'
+import SaveIcon from '@mui/icons-material/Save'
+import ClearIcon from '@mui/icons-material/Clear'
+import EditIcon from '@mui/icons-material/Edit'
+import InfoIcon from '@mui/icons-material/Info'
 
 export function createData(
     id: number,
@@ -28,7 +40,7 @@ export function createData(
     endDate: Date,
     packageRequested: string,
     status: RequestStatus,
-    addOnServiceName?: string
+    numberOfAddOnServices?: number
 ) {
     const formatBookingDate = DateToString(bookingDate)
     const formatEndDate = DateToString(endDate)
@@ -39,13 +51,18 @@ export function createData(
         bookingDate: formatBookingDate,
         endDate: formatEndDate,
         packageRequested,
-        addOnServiceName,
+        numberOfAddOnServices,
         status,
+        isNew: false,
     }
 }
 
 export default function RequestManagementPage() {
     const router = useRouter()
+    const [rows, setRows] = React.useState(demoRows)
+    const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
+        {}
+    )
     const myForm = useForm<RequestFilterSchemaType>({
         defaultValues: {},
         resolver: yupResolver(requestFilterSchema),
@@ -61,17 +78,6 @@ export default function RequestManagementPage() {
     } = myForm
     const submitButton = useRef<any>()
     const [value, setValue] = useState()
-
-    const handleRowDlClick: GridEventListener<'rowDoubleClick'> = (params) => {
-        if ((params.row.status as RequestStatus) === 'Pending') {
-            router.push(`/staff/requests/${params.row.id}`)
-        }
-        if ((params.row.status as RequestStatus) === 'Working') {
-            router.push(
-                `/staff/requests/${params.row.id}/update-log/${params.row.id}`
-            )
-        }
-    }
 
     const onSubmit: SubmitHandler<RequestFilterSchemaType> = async (data) => {
         console.log(data)
@@ -102,24 +108,138 @@ export default function RequestManagementPage() {
     }
 
     const columns: GridColDef[] = [
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'apartmentName', headerName: 'Apartment Name', width: 250 },
+        { field: 'id', headerName: 'ID', width: 70, hideable: true },
+        { field: 'apartmentName', headerName: 'Apartment Name', width: 220 },
         {
             field: 'owner',
             headerName: 'Owner',
             width: 200,
         },
-        { field: 'bookingDate', headerName: 'Booking date', width: 170 },
-        { field: 'endDate', headerName: 'End date', width: 170 },
+        { field: 'bookingDate', headerName: 'Book date', width: 100 },
+        { field: 'endDate', headerName: 'End date', width: 100 },
 
         {
             field: 'packageRequested',
             headerName: 'Package Request',
             width: 200,
         },
-        { field: 'addOnServiceName', headerName: 'Add-on Service', width: 200 },
-        { field: 'status', headerName: 'Status', width: 90 },
+        {
+            field: 'numberOfAddOnServices',
+            headerName: 'Add-on Services',
+            width: 130,
+        },
+        {
+            field: 'status',
+            headerName: 'Status',
+            width: 90,
+            editable: true,
+            type: 'singleSelect',
+            valueOptions: ['Working', 'Pending', 'Done'],
+        },
+        {
+            field: 'actions',
+            type: 'actions',
+            headerName: 'Actions',
+            width: 100,
+            cellClassName: 'actions',
+            getActions: ({ id, row }) => {
+                const isInEditMode =
+                    rowModesModel[id]?.mode === GridRowModes.Edit
+
+                if (isInEditMode) {
+                    return [
+                        <GridActionsCellItem
+                            icon={<SaveIcon />}
+                            label="Save"
+                            sx={{
+                                color: 'primary.main',
+                            }}
+                            onClick={handleSaveClick(id)}
+                        />,
+                        <GridActionsCellItem
+                            icon={<ClearIcon />}
+                            label="Cancel"
+                            className="textPrimary"
+                            onClick={handleCancelClick(row)}
+                            color="inherit"
+                        />,
+                    ]
+                }
+
+                return [
+                    <GridActionsCellItem
+                        icon={<EditIcon />}
+                        label="Edit"
+                        className="textPrimary"
+                        onClick={handleEditClick(id)}
+                        color="inherit"
+                    />,
+                    <GridActionsCellItem
+                        icon={<InfoIcon />}
+                        label="Details"
+                        className="textPrimary"
+                        onClick={handleDetailClick(row)}
+                        color="inherit"
+                    />,
+                ]
+            },
+        },
     ]
+
+    const handleEditClick = (id: GridRowId) => () => {
+        setRowModesModel({
+            ...rowModesModel,
+            [id]: { mode: GridRowModes.Edit },
+        })
+    }
+
+    const handleDetailClick = (row: any) => () => {
+        if ((row.status as RequestStatus) === 'Pending') {
+            router.push(`/staff/requests/${row.id}`)
+        } else if ((row.status as RequestStatus) === 'Working') {
+            router.push(`/staff/requests/${row.id}/update-log/${row.id}`)
+        }
+    }
+
+    const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
+        setRowModesModel(newRowModesModel)
+    }
+
+    const processRowUpdate = (newRow: GridRowModel) => {
+        const updatedRow = { ...newRow, isNew: false }
+        setRows(
+            demoRows.map((row) => (row.id === newRow.id ? updatedRow : row))
+        )
+        return updatedRow
+    }
+
+    const handleSaveClick = (id: GridRowId) => () => {
+        setRowModesModel({
+            ...rowModesModel,
+            [id]: { mode: GridRowModes.View },
+        })
+    }
+
+    const handleRowEditStop: GridEventListener<'rowEditStop'> = (
+        params,
+        event
+    ) => {
+        if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+            event.defaultMuiPrevented = true
+        }
+    }
+
+    const handleCancelClick = (id: GridRowId) => () => {
+        setRowModesModel({
+            ...rowModesModel,
+            [id]: { mode: GridRowModes.View, ignoreModifications: true },
+        })
+
+        const editedRow = rows.find((row) => row.id === id)
+        if (editedRow!.isNew) {
+            setRows(rows.filter((row) => row.id !== id))
+        }
+    }
 
     return (
         <StaffLayout title="Request Management">
@@ -206,9 +326,13 @@ export default function RequestManagementPage() {
                 </form>
             </FormProvider>
             <Table
-                rows={demoRows}
+                editMode="row"
+                rows={rows}
                 columns={columns}
-                handleRowDlClick={handleRowDlClick}
+                rowModesModel={rowModesModel}
+                handleRowEditStop={handleRowEditStop}
+                processRowUpdate={processRowUpdate}
+                handleRowModesModelChange={handleRowModesModelChange}
             />
         </StaffLayout>
     )

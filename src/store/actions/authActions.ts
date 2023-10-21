@@ -1,19 +1,19 @@
-import { loginAPI } from '@/apis/auth.api'
+import { staffLoginAPI } from '@/apis/auth.api'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { User } from '@/types/auth.type'
 import { ResponseAPI } from '@/types'
 import { toast } from 'react-toastify'
 import { error } from 'console'
 
-export const loginUser = createAsyncThunk(
+export const loginStaff = createAsyncThunk(
     'auth/login',
-    async (user: Omit<User, 'token' | 'email' | 'fullname'>) => {
+    async (user: Omit<User, 'token' | 'name' | 'role' | 'phone'>) => {
         try {
             const body = {
-                username: user.username,
+                email: user.email,
                 password: user.password,
             }
-            const { data } = await loginAPI(body)
+            const { data } = await staffLoginAPI(body)
             if (!data.data) {
                 new Error('No user data')
             }

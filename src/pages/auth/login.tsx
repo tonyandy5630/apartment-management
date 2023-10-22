@@ -172,7 +172,7 @@ export default function LoginPage() {
                             <Divider
                                 orientation="horizontal"
                                 flexItem
-                                className="text-xs text-black text-orange"
+                                className="text-xs  text-orange"
                                 sx={{
                                     '&::before,&::after': {
                                         borderTop: '2px solid #FF8228',

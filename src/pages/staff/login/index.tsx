@@ -17,6 +17,8 @@ import { MenuItemType } from '@/types/auth-component.type'
 import { MANAGER, STAFF } from '@/constant/auth'
 import { loginStaff } from '@/store/actions/authActions'
 
+const loginSchema = UserSchema.omit(['address', 'name', 'phone', 'rePassword'])
+
 const ROLE_ITEMS: Array<MenuItemType> = [
     {
         value: STAFF.id,
@@ -44,12 +46,14 @@ export default function LoginPage() {
         setError,
         watch,
         formState: { errors },
-    } = useForm<UserSchemaType>({
+    } = useForm<
+        Omit<UserSchemaType, 'phone' | 'name' | 'rePassword' | 'address'>
+    >({
         defaultValues: {
             email: '',
             password: '',
         },
-        resolver: yupResolver(UserSchema),
+        resolver: yupResolver(loginSchema),
     })
 
     useEffect(() => {
@@ -63,7 +67,7 @@ export default function LoginPage() {
     }, [])
 
     const onSubmit: SubmitHandler<
-        Omit<UserSchemaType, 'token' | 'name' | 'role' | 'phone'>
+        Omit<UserSchemaType, 'phone' | 'name' | 'rePassword' | 'address'>
     > = async (data) => {
         console.log(data)
         const req = await dispatch(loginStaff(data))
@@ -157,7 +161,7 @@ export default function LoginPage() {
                                     isRequired={true}
                                     register={register}
                                     placeholder="Enter password"
-                                    className="m-0 border-red-300 rounded-sm w-full"
+                                    className="w-full m-0 border-red-300 rounded-sm"
                                     helperText={errors.password?.message}
                                     helperTextIsError={
                                         errors.password !== undefined

@@ -35,7 +35,7 @@ export default function Button({
                 <MUIButton
                     type={type}
                     variant="outlined"
-                    className={`${className}`}
+                    className={`min-w-[110px] ${className}`}
                     onClick={handleButtonClick}
                     disableElevation
                 >

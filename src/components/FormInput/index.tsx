@@ -18,6 +18,7 @@ interface InputProps extends IFormInputProps {
     inputType?: InputType
     startAdornment?: React.ReactNode
     inputClassName?: string
+    disable?: boolean
 }
 
 export default function FormInput({
@@ -29,6 +30,7 @@ export default function FormInput({
     name,
     autocomplete,
     helperTextIsError,
+    disable = false,
     isRequired = false,
     inputProps,
     register,
@@ -70,6 +72,7 @@ export default function FormInput({
                 error={isError}
                 inputProps={inputProps}
                 label={label}
+                disabled={disable}
                 sx={{
                     fontSize: 14,
                     ...sx,

@@ -6,7 +6,7 @@ import React from 'react'
 
 type Props = {
     apartmentName: string
-    owner: string
+    owner?: string
     status?: RequestStatus
     children?: React.ReactNode
 }

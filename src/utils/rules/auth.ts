@@ -1,10 +1,14 @@
-import { EMAIL_PATTERN, LENGTH_WARNING } from '@/constant/auth'
+import {
+    EMAIL_REGEX,
+    LENGTH_WARNING,
+    PHONE_LENGTH_WARNING,
+} from '@/constant/auth'
 import type { UseFormGetValues } from 'react-hook-form'
 
 const getRules = (getValues?: UseFormGetValues<any>) => ({
     email: {
         pattern: {
-            value: EMAIL_PATTERN,
+            value: EMAIL_REGEX,
             message: `Not a valid email format`,
         },
         minLength: {
@@ -24,6 +28,16 @@ const getRules = (getValues?: UseFormGetValues<any>) => ({
         minLength: {
             value: 6,
             message: LENGTH_WARNING,
+        },
+    },
+    phone: {
+        minLength: {
+            value: 10,
+            message: PHONE_LENGTH_WARNING,
+        },
+        maxLength: {
+            value: 13,
+            message: PHONE_LENGTH_WARNING,
         },
     },
     pwd: {

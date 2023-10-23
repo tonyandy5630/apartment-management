@@ -1,3 +1,4 @@
+import '@/styles/header.scss'
 import MyContainer from '@/components/Container'
 import HideOnScroll from '@/components/HideOnScroll'
 import { useAppDispatch, useAppSelector } from '@/store'
@@ -44,7 +45,13 @@ export default function StaffHeader() {
                                         </Link>
                                     </Stack>
                                 </Stack>
-                                <Stack direction="row" gap={2}>
+                                <Stack
+                                    direction="row"
+                                    gap={2}
+                                    className="staff-header"
+                                    component={Link}
+                                    href="profile?section=profile"
+                                >
                                     <Avatar
                                         src="/broken-image.jpg"
                                         sx={{

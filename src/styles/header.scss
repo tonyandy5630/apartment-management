@@ -14,3 +14,12 @@
 .link:hover {
     text-decoration: underline;
 }
+
+.staff-header {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    &:hover {
+        background: rgba(128, 128, 128, 0.334);
+    }
+}

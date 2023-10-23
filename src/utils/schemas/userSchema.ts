@@ -1,6 +1,6 @@
 import { object, string, InferType } from 'yup'
 import getRules from '../rules/auth'
-import { EMPTY_WARNING, MANAGER, STAFF } from '@/constant/auth'
+import { EMPTY_WARNING, MANAGER, PHONE_REGEX, STAFF } from '@/constant/auth'
 
 const rules = getRules()
 
@@ -11,6 +11,15 @@ const UserSchema = object({
         .email('Not an email')
         .required(EMPTY_WARNING),
     password: string().min(1).max(20).required(EMPTY_WARNING),
+    name: string()
+        .max(rules.name.maxLength.value, rules.name.maxLength.message)
+        .required(EMPTY_WARNING),
+    phone: string()
+        .min(rules.phone.minLength.value, rules.phone.minLength.message)
+        .max(rules.phone.maxLength.value, rules.phone.maxLength.message)
+        .matches(PHONE_REGEX, 'Phone number is not valid'),
+    address: string(),
+    rePassword: string().min(1).max(20).required(EMPTY_WARNING),
 })
 
 export type UserSchemaType = InferType<typeof UserSchema>

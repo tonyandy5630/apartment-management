@@ -14,7 +14,7 @@ export type RequestDetail = {
     owner: string
     packageRequested: string
     packagePrice: number
-    bookingDate: Date
+    bookDateTime: Date
     endDate: Date
     addOnServices?: Array<AddOnService>
     feedback?: string

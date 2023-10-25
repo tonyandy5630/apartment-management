@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { loginStaff } from '../actions/authActions'
-import { User } from '@/types/auth.type'
+import { Staff, User } from '@/types/auth.type'
 import { toast } from 'react-toastify'
 
 const initialState: {
-    user: Omit<User, 'password'> | undefined
+    user: Omit<User, 'password'> | Omit<Staff, 'password'> | undefined
     loading: boolean
     error?: boolean
     success: boolean
@@ -25,10 +25,11 @@ export const userSlice = createSlice({
         }),
             builder.addCase(loginStaff.fulfilled, (state, { payload }) => {
                 state.loading = false
-                state.success = true
+                if (payload?.success) {
+                    state.success = payload?.success
+                }
+                console.log()
                 if (payload?.data) {
-                    const token = payload?.data?.token
-                    localStorage.setItem('userToken', token)
                     state.user = payload?.data
                 }
             }),

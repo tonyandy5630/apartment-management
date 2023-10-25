@@ -5,12 +5,14 @@ import { useAppDispatch, useAppSelector } from '@/store'
 import { AppBar, Avatar, Box, Stack, Toolbar, Typography } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'
+import { Staff } from '@/types/auth.type'
 
 const AVATAR_RADIUS = 40
 
 export default function StaffHeader() {
     const dispatch = useAppDispatch()
     const user = useAppSelector((state) => state.userAuthenticate.user)
+    console.log(user)
 
     return (
         <>
@@ -65,12 +67,12 @@ export default function StaffHeader() {
                                     >
                                         <Typography fontSize="15px">
                                             {user !== undefined
-                                                ? user.name
+                                                ? (user as Staff).staffName
                                                 : 'Bui Thanh Tu'}
                                         </Typography>
                                         <Typography fontSize="13px">
                                             {user !== undefined
-                                                ? user.email
+                                                ? (user as Staff).email
                                                 : 'tonyandy789@gmail.com'}
                                         </Typography>
                                     </Stack>

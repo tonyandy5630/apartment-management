@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
 import '@/styles/login.scss'
+import React, { useEffect, useState } from 'react'
 import { Box, Container, Divider, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import getImageURLFromFirebase from '@/utils/firebase/getImage'
@@ -12,10 +12,10 @@ import _ from 'lodash'
 import Link from 'next/link'
 import Button from '@/components/Button'
 import GoogleIcon from '@/components/Icons/Google'
-import FormSelect from '@/components/FormInput/Select'
 import { MenuItemType } from '@/types/auth-component.type'
 import { MANAGER, STAFF } from '@/constant/auth'
 import { loginStaff } from '@/store/actions/authActions'
+import { useRouter } from 'next/router'
 
 const loginSchema = UserSchema.omit(['address', 'name', 'phone', 'rePassword'])
 
@@ -36,7 +36,8 @@ export default function LoginPage() {
     const [imgURL, setImgURL] = useState<string>('')
     const [logoURL, setLogoURL] = useState<string>('')
     const [loading, setIsLoading] = useState(true)
-
+    const logingIn = useAppSelector((state) => state.userAuthenticate.loading)
+    const router = useRouter()
     const user = useAppSelector((state) => state.userAuthenticate.user)
     const {
         register,
@@ -69,36 +70,35 @@ export default function LoginPage() {
     const onSubmit: SubmitHandler<
         Omit<UserSchemaType, 'phone' | 'name' | 'rePassword' | 'address'>
     > = async (data) => {
-        console.log(data)
         const req = await dispatch(loginStaff(data))
-        console.log(req.payload)
-        // if (req.meta.requestStatus === 'fulfilled') {
-        //     router.push('/dashboard')
-        // }
+        console.log(req)
+        if (req.meta.requestStatus === 'fulfilled') {
+            router.push('requests')
+        }
 
-        // if (req.meta.requestStatus === 'rejected') {
-        //     setError('password', {
-        //         type: 'Server',
-        //         message: req.payload as string,
-        //     })
-        //     setError('username', {
-        //         type: 'Server',
-        //         message: req.payload as string,
-        //     })
-        //     reset(
-        //         {
-        //             username: '',
-        //             password: '',
-        //         },
-        //         {
-        //             keepErrors: true,
-        //         }
-        //     )
-        // }
+        if (req.meta.requestStatus === 'rejected') {
+            setError('password', {
+                type: 'Server',
+                message: 'Wrong email or password',
+            })
+            setError('email', {
+                type: 'Server',
+                message: 'Wrong email or password',
+            })
+            reset(
+                {
+                    email: '',
+                    password: '',
+                },
+                {
+                    keepErrors: true,
+                }
+            )
+        }
     }
 
     return (
-        <div className="background">
+        <div className="login-background">
             <Container
                 maxWidth="lg"
                 className="flex items-center justify-center h-full "
@@ -185,7 +185,10 @@ export default function LoginPage() {
                                     justifyContent="center"
                                     alignItems="center"
                                 >
-                                    <Button className="w-32 text-black border border-black rounded-none bg-orange">
+                                    <Button
+                                        loading={logingIn}
+                                        className="w-32 text-black border border-black rounded-none bg-orange"
+                                    >
                                         Login
                                     </Button>
                                 </Stack>

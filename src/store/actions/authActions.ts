@@ -7,13 +7,19 @@ import { error } from 'console'
 
 export const loginStaff = createAsyncThunk(
     'auth/login',
-    async (user: Omit<User, 'token' | 'name' | 'role' | 'phone'>) => {
+    async (
+        user: Omit<User, 'token' | 'name' | 'role' | 'phone'>,
+        { rejectWithValue }
+    ) => {
         try {
             const body = {
-                email: user.email,
-                password: user.password,
+                email: user.email.trim(),
+                password: user.password.trim(),
             }
             const { data } = await staffLoginAPI(body)
+            if (!data.success) {
+                return rejectWithValue(data.message)
+            }
             if (!data.data) {
                 new Error('No user data')
             }

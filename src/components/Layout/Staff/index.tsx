@@ -1,5 +1,4 @@
 import '@/styles/main.scss'
-import '@/styles/header.scss'
 import React from 'react'
 import StaffHeader from '@/components/Header/Staff'
 import Footer from '@/components/Footer'

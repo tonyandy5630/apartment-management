@@ -1,18 +1,30 @@
 import { STAFF, MANAGER } from '@/constant/auth'
-import { ResponseAPI, SuccessResponse } from '.'
+import { LoginResponse, ResponseAPI, SuccessResponse } from '.'
 
 export type User = {
     name: string
     password: string
     email: string
-    token: string
     phone: string
     role: Role
 }
 
-export type AuthResponse = SuccessResponse<{
-    access_token: string
-    user: User
+export type Staff = {
+    staffId: number
+    staffName: string
+    password: string
+    email: string
+    staffPhone: string
+    code: string
+    staffStatus: string
+    address: string
+    role: Role
+}
+
+export type AuthResponse = LoginResponse<{
+    user: Staff | User
+    token: string
+    success: boolean
 }>
 
 export type Role = typeof STAFF.id | typeof MANAGER.id

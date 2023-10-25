@@ -22,6 +22,7 @@ import {
     GridRowModel,
     GridRowModes,
     GridRowModesModel,
+    GridRowsProp,
 } from '@mui/x-data-grid'
 import { RequestStatus } from '@/types/request.type'
 import { DateToString } from '@/utils/dayjs'
@@ -31,6 +32,9 @@ import SaveIcon from '@mui/icons-material/Save'
 import ClearIcon from '@mui/icons-material/Clear'
 import EditIcon from '@mui/icons-material/Edit'
 import InfoIcon from '@mui/icons-material/Info'
+import { useAppDispatch, useAppSelector } from '@/store'
+import { useQuery } from '@tanstack/react-query'
+import { getRequests } from '@/apis/request.api'
 
 export function createData(
     id: number,
@@ -59,6 +63,9 @@ export function createData(
 
 export default function RequestManagementPage() {
     const router = useRouter()
+    const dispatch = useAppDispatch()
+    const user = useAppSelector((state) => state.userAuthenticate.user)
+
     const [rows, setRows] = React.useState(demoRows)
     const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
         {}
@@ -78,6 +85,13 @@ export default function RequestManagementPage() {
     } = myForm
     const submitButton = useRef<any>()
     const [value, setValue] = useState()
+
+    const requests = useQuery(['get-requests'], getRequests)
+
+    if (requests.status === 'success') {
+        const requestList = requests.data.data
+        console.log(requests.data.data)
+    }
 
     const onSubmit: SubmitHandler<RequestFilterSchemaType> = async (data) => {
         console.log(data)

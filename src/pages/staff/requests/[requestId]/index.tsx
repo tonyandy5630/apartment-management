@@ -2,6 +2,8 @@ import Button from '@/components/Button'
 import StaffLayout from '@/components/Layout/Staff'
 import RequestDetailContainer from '@/components/RequestDetailContainer'
 import RequestTitle from '@/components/RequestDetailContainer/RequestApartmentTitle'
+import { MANAGER, STAFF } from '@/constant/auth'
+import { useAppDispatch, useAppSelector } from '@/store'
 import Request, { RequestDetail } from '@/types/request.type'
 import { demoRequest, demoRequestDetail } from '@/utils/demoData'
 import { Box, Stack, Typography } from '@mui/material'
@@ -11,6 +13,11 @@ import React from 'react'
 export default function RequestDetail() {
     const router = useRouter()
     const { requestId } = router.query
+    const dispatch = useAppDispatch()
+    const user = useAppSelector((state) => state.userAuthenticate.user)
+    console.log(user)
+
+    const handleAssignStaff = () => {}
 
     const handleCreateLog = () => {
         if (demoRequestDetail.status === 'Pending') {
@@ -31,18 +38,30 @@ export default function RequestDetail() {
                 owner={demoRequestDetail.owner}
                 status={demoRequestDetail.status}
             >
-                <Button variant="primary" handleButtonClick={handleCreateLog}>
-                    {(() => {
-                        switch (demoRequestDetail.status) {
-                            case 'Pending':
-                                return 'Create Log'
-                            case 'Working':
-                                return 'Update Log'
-                            case 'Done':
-                                return 'View Log'
-                        }
-                    })()}
-                </Button>
+                {user?.role === STAFF.id ? (
+                    <Button
+                        variant="primary"
+                        handleButtonClick={handleCreateLog}
+                    >
+                        {(() => {
+                            switch (demoRequestDetail.status) {
+                                case 'Pending':
+                                    return 'Create Log'
+                                case 'Working':
+                                    return 'Update Log'
+                                case 'Done':
+                                    return 'View Log'
+                            }
+                        })()}
+                    </Button>
+                ) : (
+                    <Button
+                        variant="primary"
+                        handleButtonClick={handleAssignStaff}
+                    >
+                        Assign
+                    </Button>
+                )}
             </RequestTitle>
             <Stack
                 direction="row"

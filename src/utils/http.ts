@@ -9,7 +9,7 @@ class Http {
     constructor() {
         this.accessToken = getAccessTokenFromLS()
         this.instance = axios.create({
-            baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
+            baseURL: process.env.NEXT_PUBLIC_AZURE_API,
             timeout: 10000,
             withCredentials: true,
             headers: {
@@ -20,7 +20,7 @@ class Http {
         this.instance.interceptors.request.use(
             (config) => {
                 if (this.accessToken !== '' && config.headers) {
-                    config.headers.Authorization = this.accessToken
+                    config.headers.Authorization = `Bearer ${this.accessToken}`
                     return config
                 }
                 return config
@@ -33,10 +33,11 @@ class Http {
         this.instance.interceptors.response.use(
             (response) => {
                 const { url } = response.config
-                if (url === '/staff/login' || url === '/auth/login') {
-                    this.accessToken = (
-                        response.data as AuthResponse
-                    ).data.access_token
+                if (
+                    url?.includes('/staff/login') ||
+                    url?.includes('/auth/login')
+                ) {
+                    this.accessToken = (response.data as AuthResponse).token
                     setAccessTokenToLS(this.accessToken)
                 } else if (url === '/logout') {
                     clearLS()
@@ -49,7 +50,6 @@ class Http {
                     HttpStatusCode.UnprocessableEntity
                 ) {
                     const data: any | undefined = error.response?.data
-                    console.log(data)
                     const message = data.message || error.message
                     toast.error(message)
                 }

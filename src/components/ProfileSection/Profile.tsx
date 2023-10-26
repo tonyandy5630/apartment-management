@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import RequestInfoTitle from '../RequestDetailContainer/RequestInfo/Title'
 import Grid from '@mui/material/Unstable_Grid2'
 import UserSchema, { UserSchemaType } from '@/utils/schemas/userSchema'
@@ -8,10 +8,13 @@ import { useAppDispatch, useAppSelector } from '@/store'
 import FormInput from '../FormInput'
 import Button from '../Button'
 import { Box, Stack } from '@mui/material'
+import { Staff } from '@/types/auth.type'
+import { useRouter } from 'next/router'
 
 export default function ProfileSection() {
     const dispatch = useAppDispatch()
-    const user = useAppSelector((state) => state.userAuthenticate.user)
+    const router = useRouter()
+    const user = useAppSelector((state) => state.userAuthenticate.user) as Staff
 
     const {
         register,
@@ -22,8 +25,19 @@ export default function ProfileSection() {
         watch,
         formState: { errors },
     } = useForm<UserSchemaType>({
-        defaultValues: {},
+        defaultValues: {
+            name: user?.staffName,
+            email: user?.email,
+            phone: user?.staffPhone,
+            address: user?.address,
+        },
         resolver: yupResolver(UserSchema),
+    })
+
+    useEffect(() => {
+        if (!user) {
+            router.push('/staff/login')
+        }
     })
 
     return (
@@ -54,7 +68,7 @@ export default function ProfileSection() {
                         <FormInput
                             control={control}
                             register={register}
-                            name="Role"
+                            name="role"
                             label="Role"
                             disable={true}
                             className="w-full"

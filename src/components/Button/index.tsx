@@ -1,12 +1,12 @@
 import React from 'react'
-import { Button as MUIButton } from '@mui/material'
-
+import LoadingButton from '@mui/lab/LoadingButton'
 type ButtonProps = {
     children?: React.ReactNode
     className?: string
     type?: 'submit' | 'button'
     handleButtonClick?: () => void
     variant?: 'primary' | 'secondary'
+    loading?: boolean
 }
 
 export default function Button({
@@ -14,37 +14,42 @@ export default function Button({
     className,
     type = 'submit',
     variant = 'primary',
+    loading,
     handleButtonClick,
 }: ButtonProps) {
     switch (variant) {
         case 'primary':
             return (
-                <MUIButton
+                <LoadingButton
+                    loadingIndicator="Loading…"
                     type={type}
                     variant="contained"
+                    loading={loading}
                     sx={{ border: '1px solid black' }}
                     className={` bg-orange min-w-[110px]  ${className}`}
                     onClick={handleButtonClick}
                     disableElevation
                 >
                     {children}
-                </MUIButton>
+                </LoadingButton>
             )
         case 'secondary':
             return (
-                <MUIButton
+                <LoadingButton
+                    loadingIndicator="Loading…"
                     type={type}
+                    loading={loading}
                     variant="outlined"
                     className={`min-w-[110px] ${className}`}
                     onClick={handleButtonClick}
                     disableElevation
                 >
                     {children}
-                </MUIButton>
+                </LoadingButton>
             )
         default:
             return (
-                <MUIButton
+                <LoadingButton
                     type={type}
                     variant="contained"
                     sx={{ border: '1px solid black' }}
@@ -53,7 +58,7 @@ export default function Button({
                     disableElevation
                 >
                     {children}
-                </MUIButton>
+                </LoadingButton>
             )
     }
 }

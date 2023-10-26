@@ -35,7 +35,7 @@ const demoRequestDetail: RequestDetail = {
     rDId: 1,
     requestId: 1,
     apartmentName: 'Riverside Apartment',
-    bookingDate: new Date(),
+    bookDateTime: new Date(),
     endDate: new Date(),
     owner: 'Bui Thanh Tu',
     packagePrice: 300,

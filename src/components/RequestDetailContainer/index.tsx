@@ -58,7 +58,7 @@ export default function RequestDetailContainer({
                             <RequestDetailSection
                                 title="Book Date"
                                 content={DateToString(
-                                    request?.rdDetail.bookingDate
+                                    request?.rdDetail.bookDateTime
                                 )}
                             />
                             <RequestDetailSection

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { loginStaff } from '../actions/authActions'
+import { loginStaff, renewTokenAndUser } from '../actions/authActions'
 import { Staff, User } from '@/types/auth.type'
 import { toast } from 'react-toastify'
 
@@ -20,6 +20,7 @@ export const userSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        //* Staff Login
         builder.addCase(loginStaff.pending, (state, { payload }) => {
             state.loading = true
         }),
@@ -27,17 +28,38 @@ export const userSlice = createSlice({
                 state.loading = false
                 if (payload?.success) {
                     state.success = payload?.success
-                }
-                console.log()
-                if (payload?.data) {
-                    state.user = payload?.data
+                    if (payload?.data) {
+                        state.user = payload?.data
+                    }
                 }
             }),
             builder.addCase(loginStaff.rejected, (state, { payload }) => {
                 state.loading = false
                 state.error = true
                 toast.error('Login Error')
-            })
+            }),
+            //* Renew Token
+            builder.addCase(renewTokenAndUser.pending, (state, { payload }) => {
+                state.loading = true
+            }),
+            builder.addCase(
+                renewTokenAndUser.fulfilled,
+                (state, { payload }) => {
+                    state.loading = false
+                    if (payload?.success) {
+                        state.success = payload?.success
+                        if (payload?.data) state.user = payload?.data
+                    }
+                }
+            ),
+            builder.addCase(
+                renewTokenAndUser.rejected,
+                (state, { payload }) => {
+                    state.loading = false
+                    state.error = true
+                    toast.error('Renew Error')
+                }
+            )
     },
 })
 

@@ -22,6 +22,7 @@ const UserSchema = object({
         .matches(PHONE_REGEX, 'Phone number is not valid'),
     address: string(),
     rePassword: string().min(1).max(20).required(EMPTY_WARNING),
+    code: string(),
 })
 
 export type UserSchemaType = InferType<typeof UserSchema>

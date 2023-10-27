@@ -15,7 +15,6 @@ export default function ProfileSection() {
     const dispatch = useAppDispatch()
     const router = useRouter()
     const user = useAppSelector((state) => state.userAuthenticate.user) as Staff
-
     const {
         register,
         handleSubmit,
@@ -26,10 +25,11 @@ export default function ProfileSection() {
         formState: { errors },
     } = useForm<UserSchemaType>({
         defaultValues: {
-            name: user?.staffName,
+            name: user?.name,
             email: user?.email,
-            phone: user?.staffPhone,
+            phone: user?.phone,
             address: user?.address,
+            code: user?.code,
         },
         resolver: yupResolver(UserSchema),
     })
@@ -68,11 +68,11 @@ export default function ProfileSection() {
                         <FormInput
                             control={control}
                             register={register}
-                            name="role"
-                            label="Role"
+                            name="code"
+                            label="Code"
                             disable={true}
                             className="w-full"
-                            id="role"
+                            id="code"
                         />
                     </Grid>
                     <Grid xs={5}>
@@ -92,7 +92,7 @@ export default function ProfileSection() {
                             name="phone"
                             label="Phone"
                             className="w-full"
-                            id="update-role"
+                            id="update-phone"
                         />
                     </Grid>
                     <Grid xs={12}>

@@ -1,7 +1,10 @@
-import ProfileSection from '@/components/ProfileSection/Profile'
+// import ProfileSection from '@/components/ProfileSection/Profile'
 
 import ChangePasswordSection from '@/components/ProfileSection/ChangePassword'
 import dynamic from 'next/dynamic'
+const ProfileSection = dynamic(
+    () => import('@/components/ProfileSection/Profile')
+)
 import { useRouter } from 'next/router'
 import React from 'react'
 

@@ -71,7 +71,6 @@ export default function LoginPage() {
         Omit<UserSchemaType, 'phone' | 'name' | 'rePassword' | 'address'>
     > = async (data) => {
         const req = await dispatch(loginStaff(data))
-        console.log(req)
         if (req.meta.requestStatus === 'fulfilled') {
             router.push('requests')
         }

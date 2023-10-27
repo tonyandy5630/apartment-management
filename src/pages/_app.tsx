@@ -9,6 +9,8 @@ import { store } from '@/store'
 import '@/app/global.css'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function App({ Component, pageProps }: AppProps) {
     const queryClient = new QueryClient()
@@ -20,6 +22,11 @@ export default function App({ Component, pageProps }: AppProps) {
                     <GlobalCssPriority>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <Component {...pageProps} />
+                            <ToastContainer
+                                position="top-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                            />
                         </LocalizationProvider>
                     </GlobalCssPriority>
                 </ThemeProvider>

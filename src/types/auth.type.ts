@@ -10,11 +10,11 @@ export type User = {
 }
 
 export type Staff = {
-    staffId: number
-    staffName: string
+    id: number
+    name: string
     password: string
     email: string
-    staffPhone: string
+    phone: string
     code: string
     staffStatus: string
     address: string

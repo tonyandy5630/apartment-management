@@ -12,7 +12,6 @@ const AVATAR_RADIUS = 40
 export default function StaffHeader() {
     const dispatch = useAppDispatch()
     const user = useAppSelector((state) => state.userAuthenticate.user)
-    console.log(user)
 
     return (
         <>
@@ -67,7 +66,7 @@ export default function StaffHeader() {
                                     >
                                         <Typography fontSize="15px">
                                             {user !== undefined
-                                                ? (user as Staff).staffName
+                                                ? (user as Staff).name
                                                 : 'Bui Thanh Tu'}
                                         </Typography>
                                         <Typography fontSize="13px">

@@ -15,7 +15,7 @@ export const clearLS = () => {
 export const getAccessTokenFromLS = () => {
     if (typeof window !== 'undefined') {
         // Perform localStorage action
-        localStorage.getItem('access_token') || ''
+        return localStorage.getItem('access_token') || ''
     }
     return ''
 }

@@ -12,7 +12,7 @@ const AVATAR_RADIUS = 40
 export default function StaffHeader() {
     const dispatch = useAppDispatch()
     const user = useAppSelector((state) => state.userAuthenticate.user)
-
+    const loading = useAppSelector((state) => state.userAuthenticate.loading)
     return (
         <>
             <Box sx={{ flexGrow: 1, height: '64px' }}>
@@ -65,14 +65,14 @@ export default function StaffHeader() {
                                         alignItems="flex-start"
                                     >
                                         <Typography fontSize="15px">
-                                            {user !== undefined
+                                            {user !== undefined && !loading
                                                 ? (user as Staff).name
-                                                : 'Bui Thanh Tu'}
+                                                : 'Loading...'}
                                         </Typography>
                                         <Typography fontSize="13px">
-                                            {user !== undefined
+                                            {user !== undefined && !loading
                                                 ? (user as Staff).email
-                                                : 'tonyandy789@gmail.com'}
+                                                : 'Loading...'}
                                         </Typography>
                                     </Stack>
                                 </Stack>

@@ -35,7 +35,8 @@ class Http {
                 const { url } = response.config
                 if (
                     url?.includes('/staff/login') ||
-                    url?.includes('/auth/login')
+                    url?.includes('/auth/login') ||
+                    url?.includes('/token/renew')
                 ) {
                     this.accessToken = (response.data as AuthResponse).token
                     setAccessTokenToLS(this.accessToken)

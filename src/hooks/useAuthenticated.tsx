@@ -8,6 +8,7 @@ import React, { useState } from 'react'
 const useAuthenticated = () => {
     const dispatch = useAppDispatch()
     const user = useAppSelector((state) => state.userAuthenticate.user)
+    const loading = useAppSelector((state) => state.userAuthenticate.loading)
     const router = useRouter()
 
     const getRenewTokenUser = async () => {
@@ -18,6 +19,11 @@ const useAuthenticated = () => {
     }
     if (!user) {
         getRenewTokenUser()
+    }
+
+    return {
+        loading,
+        role: user?.role ?? -1,
     }
 }
 

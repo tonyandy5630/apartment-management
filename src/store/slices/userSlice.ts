@@ -10,7 +10,7 @@ const initialState: {
     success: boolean
 } = {
     user: undefined,
-    loading: false,
+    loading: true,
     error: undefined,
     success: false,
 }

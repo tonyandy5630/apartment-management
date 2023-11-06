@@ -1,8 +1,9 @@
 type AddOnService = {
-    id: number
-    serviceName: string
-    description?: string
+    serviceId: number
+    code: string
+    name: string
     price: number
+    unit: string
 }
 
 export default AddOnService

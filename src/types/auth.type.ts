@@ -1,4 +1,4 @@
-import { STAFF, MANAGER } from '@/constant/auth'
+import { STAFF, MANAGER } from '@/constant/auth.constant'
 import { LoginResponse, ResponseAPI, SuccessResponse } from '.'
 
 export type User = {

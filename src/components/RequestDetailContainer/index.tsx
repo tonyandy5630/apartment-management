@@ -5,13 +5,15 @@ const RequestDetailSection = dynamic(() => import('./Section'))
 import { DateToString } from '@/utils/dayjs'
 import Grid from '@mui/material/Unstable_Grid2'
 import AddOnService from '@/types/add-on-services.type'
+import RequestDetail from '@/types/request-detail.type'
 
 type Props = {
     size?: 'large' | 'small'
     isRequestDetail?: boolean
     isAddOnDetail?: boolean
-    request?: Request
+    request?: RequestDetail
     addOnServices?: Array<AddOnService>
+    isLoading: boolean
 }
 
 const AddOnService = ['Add-on Services', 'Price']
@@ -22,10 +24,13 @@ export default function RequestDetailContainer({
     addOnServices,
     isRequestDetail,
     isAddOnDetail,
+    isLoading,
 }: Props) {
     const addOnPrices = (addOnServices?: Array<AddOnService>) => {
         if (addOnServices) {
-            return addOnServices.map((item) => item.price.toString())
+            return addOnServices.map(
+                (item) => `${item.price.toString()}$ / ${item.unit}`
+            )
         }
         return undefined
     }
@@ -49,32 +54,33 @@ export default function RequestDetailContainer({
                         <>
                             <RequestDetailSection
                                 title="Package Requested"
-                                content={request?.rdDetail.packageRequested}
+                                content={request?.packageName}
+                                isLoading={isLoading}
                             />
                             <RequestDetailSection
                                 title="Package Price"
-                                content={`${request?.rdDetail.packagePrice.toString()}$`}
+                                content={`${request?.packagePrice ?? 0}$`}
+                                isLoading={isLoading}
                             />
                             <RequestDetailSection
                                 title="Book Date"
-                                content={DateToString(
-                                    request?.rdDetail.bookDateTime
-                                )}
+                                content={DateToString(request?.bookDateTime)}
+                                isLoading={isLoading}
                             />
                             <RequestDetailSection
                                 title="End Date"
-                                content={DateToString(
-                                    request?.rdDetail.endDate
-                                )}
+                                content={DateToString(request?.endDateTime)}
+                                isLoading={isLoading}
                             />
                             <RequestDetailSection
                                 title="Description"
                                 xs={12}
                                 content={
-                                    request?.requestDescription
-                                        ? request.requestDescription
+                                    request?.description
+                                        ? request.description
                                         : ''
                                 }
+                                isLoading={isLoading}
                             />
                         </>
                     )
@@ -86,10 +92,12 @@ export default function RequestDetailContainer({
                             <RequestDetailSection
                                 title="Add-on Services"
                                 content={addOnServices}
+                                isLoading={isLoading}
                             />
                             <RequestDetailSection
                                 title="Price"
                                 content={addOnPrices(addOnServices)}
+                                isLoading={isLoading}
                             />
                         </>
                     )

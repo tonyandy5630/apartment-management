@@ -11,6 +11,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { CookiesProvider } from 'react-cookie'
 
 export default function App({ Component, pageProps }: AppProps) {
     const queryClient = new QueryClient()
@@ -21,7 +22,9 @@ export default function App({ Component, pageProps }: AppProps) {
                 <ThemeProvider theme={theme}>
                     <GlobalCssPriority>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <Component {...pageProps} />
+                            <CookiesProvider>
+                                <Component {...pageProps} />
+                            </CookiesProvider>
                             <ToastContainer
                                 position="top-right"
                                 autoClose={5000}

@@ -5,7 +5,7 @@ import Request, { RequestDetail } from '@/types/request.type'
 import Grid from '@mui/material/Unstable_Grid2'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { MenuItemType } from '@/types/auth-component.type'
+import { MenuItemType } from '@/types/form-component.type'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import FormSelect from '@/components/FormInput/Select'
 import requestLogSchema, {

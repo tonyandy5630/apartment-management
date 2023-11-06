@@ -1,5 +1,5 @@
 import { createData } from '@/pages/staff/requests'
-import { MenuItemType } from '@/types/auth-component.type'
+import { MenuItemType } from '@/types/form-component.type'
 import Request, { RequestDetail } from '@/types/request.type'
 import { GridRowProps, GridRowsProp } from '@mui/x-data-grid'
 import dayjs from 'dayjs'

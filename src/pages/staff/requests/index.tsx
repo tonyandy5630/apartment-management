@@ -2,7 +2,7 @@ import '@/styles/request-management.scss'
 import StaffLayout from '@/components/Layout/Staff'
 import { Stack, Typography } from '@mui/material'
 import FilterIcon from '@mui/icons-material/FilterAlt'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search'
 import requestFilterSchema, {
     RequestFilterSchemaType,
@@ -22,8 +22,9 @@ import {
     GridRowModel,
     GridRowModes,
     GridRowModesModel,
+    GridRowsProp,
 } from '@mui/x-data-grid'
-import { RequestStatus } from '@/types/request.type'
+import { RequestStatus, RequestStatusID } from '@/types/request-status.type'
 import { DateToString } from '@/utils/dayjs'
 import { useRouter } from 'next/router'
 import { APARTMENT_TYPE, STATUS_iTEM, demoRows } from '@/utils/demoData'
@@ -31,26 +32,33 @@ import SaveIcon from '@mui/icons-material/Save'
 import ClearIcon from '@mui/icons-material/Clear'
 import EditIcon from '@mui/icons-material/Edit'
 import InfoIcon from '@mui/icons-material/Info'
-import { useAppDispatch, useAppSelector } from '@/store'
 import { getRequests } from '@/apis/request.api'
-import { renewTokenAndUserAPI } from '@/apis/auth.api'
 import { useQuery } from '@tanstack/react-query'
+import Head from 'next/head'
 
 export function createData(
     id: number,
+    apartmentId: number,
+    packageRequestedId: number,
+    ownerId: number,
+    description: string,
     apartmentName: string,
     owner: string,
     bookingDate: Date,
     endDate: Date,
     packageRequested: string,
-    status: RequestStatus,
-    numberOfAddOnServices?: number
+    status: RequestStatusID,
+    numberOfAddOnServices: number
 ) {
     const formatBookingDate = DateToString(bookingDate)
     const formatEndDate = DateToString(endDate)
     return {
         id,
         apartmentName,
+        apartmentId,
+        ownerId,
+        description,
+        packageRequestedId,
         owner,
         bookingDate: formatBookingDate,
         endDate: formatEndDate,
@@ -63,6 +71,7 @@ export function createData(
 
 export default function RequestManagementPage() {
     const router = useRouter()
+    const [isError, setIsError] = useState(false)
 
     const [rows, setRows] = React.useState(demoRows)
     const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
@@ -83,12 +92,43 @@ export default function RequestManagementPage() {
         formState: { errors },
     } = myForm
     const submitButton = useRef<any>()
-    const requests = useQuery(['get-requests'], getRequests)
+    const requests = useQuery({
+        queryKey: ['get-requests'],
+        queryFn: getRequests,
+        retry: 3,
+        enabled: !isError,
+    })
 
-    if (requests.status === 'success') {
-        const requestList = requests.data.data
-    }
-
+    useEffect(() => {
+        if (requests.status === 'success') {
+            const request = requests.data.data
+            const { data: list } = request
+            if (list) {
+                const newRows: GridRowsProp = list.map((item) =>
+                    createData(
+                        item.requestId,
+                        item.apartmentId,
+                        item.packageRequestedId,
+                        item.ownerId,
+                        item.description,
+                        item.apartmentName,
+                        item.owner,
+                        item.bookDateTime,
+                        item.endDateTime,
+                        item.packageName,
+                        item.reqStatus,
+                        item.numberOfAddOns
+                    )
+                )
+                setRows(Array.from(newRows) as any[])
+            } else {
+                setRows([])
+            }
+        }
+        if (requests.status === 'error') {
+            setIsError(true)
+        }
+    }, [requests.status])
     const onSubmit: SubmitHandler<RequestFilterSchemaType> = async (data) => {
         console.log(data)
         // const req = await dispatch(loginUser(data))
@@ -208,11 +248,13 @@ export default function RequestManagementPage() {
     }
 
     const handleDetailClick = (row: any) => () => {
-        if ((row.status as RequestStatus) === 'Pending') {
-            router.push(`/staff/requests/${row.id}`)
-        } else if ((row.status as RequestStatus) === 'Working') {
-            router.push(`/staff/requests/${row.id}/update-log/${row.id}`)
-        }
+        router.push(`/staff/requests/${row.id}`)
+
+        // if ((row.status as RequestStatus) === 'Pending') {
+        //     router.push(`/staff/requests/${row.id}`)
+        // } else if ((row.status as RequestStatus) === 'Working') {
+        //     router.push(`/staff/requests/${row.id}/update-log/${row.id}`)
+        // }
     }
 
     const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
@@ -256,98 +298,105 @@ export default function RequestManagementPage() {
     }
 
     return (
-        <StaffLayout title="Request Management">
-            <FormProvider {...myForm}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Stack
-                        direction="row"
-                        sx={{ py: '25px' }}
-                        alignItems="center"
-                        justifyContent="space-between"
-                        gap={5}
-                        className="w-full h-fit"
-                    >
+        <>
+            <Head>
+                <title>Staff Requests</title>
+            </Head>
+            <StaffLayout title="Request Management">
+                <FormProvider {...myForm}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <Stack
                             direction="row"
-                            justifyContent="center"
+                            sx={{ py: '25px' }}
                             alignItems="center"
-                            className="w-fit h-fit"
-                            gap={2}
+                            justifyContent="space-between"
+                            gap={5}
+                            className="w-full h-fit"
                         >
-                            <Typography
-                                fontSize="23px"
-                                textAlign="center"
-                                marginRight="20px"
+                            <Stack
+                                direction="row"
+                                justifyContent="center"
+                                alignItems="center"
+                                className="w-fit h-fit"
+                                gap={2}
                             >
-                                Filter
-                                <FilterIcon />
-                            </Typography>
-                            <FormSelect
-                                control={control}
-                                register={register}
-                                name="status"
-                                id="filter-status"
-                                label="Status"
-                                items={STATUS_iTEM}
-                                onChange={() => {
-                                    submitButton.current.click()
-                                }}
-                            />
-                            <MyDatePicker
-                                name="bookDate"
-                                label="Book Date"
-                                control={control}
-                                maxDate={getValues('endDate')}
-                                handleChange={() =>
-                                    submitButton.current.click()
-                                }
-                            />
+                                <Typography
+                                    fontSize="23px"
+                                    textAlign="center"
+                                    marginRight="20px"
+                                >
+                                    Filter
+                                    <FilterIcon />
+                                </Typography>
+                                <FormSelect
+                                    control={control}
+                                    register={register}
+                                    name="status"
+                                    id="filter-status"
+                                    label="Status"
+                                    items={STATUS_iTEM}
+                                    onChange={() => {
+                                        submitButton.current.click()
+                                    }}
+                                />
+                                <MyDatePicker
+                                    name="bookDate"
+                                    label="Book Date"
+                                    control={control}
+                                    maxDate={getValues('endDate')}
+                                    handleChange={() =>
+                                        submitButton.current.click()
+                                    }
+                                />
 
-                            <MyDatePicker
-                                name="endDate"
-                                label="End Date"
-                                minDate={getValues('bookDate')}
-                                handleChange={() =>
-                                    submitButton.current.click()
-                                }
-                            />
-                            <FormSelect
-                                id="filter-apartment-type"
-                                label="Apartment Type"
+                                <MyDatePicker
+                                    name="endDate"
+                                    label="End Date"
+                                    minDate={getValues('bookDate')}
+                                    handleChange={() =>
+                                        submitButton.current.click()
+                                    }
+                                />
+                                <FormSelect
+                                    id="filter-apartment-type"
+                                    label="Apartment Type"
+                                    control={control}
+                                    register={register}
+                                    name="apartment-type"
+                                    formClassName="w-44"
+                                    items={APARTMENT_TYPE}
+                                    onChange={() =>
+                                        submitButton.current.click()
+                                    }
+                                />
+                            </Stack>
+                            <FormInput
                                 control={control}
                                 register={register}
-                                name="apartment-type"
-                                formClassName="w-44"
-                                items={APARTMENT_TYPE}
-                                onChange={() => submitButton.current.click()}
+                                name={'search-string'}
+                                label="Search"
+                                startAdornment={<SearchIcon />}
+                                id="search-input"
+                                placeholder="Search"
+                                className="self-center h-full bg-transparent w-72"
+                                inputClassName="h-full"
                             />
                         </Stack>
-                        <FormInput
-                            control={control}
-                            register={register}
-                            name={'search-string'}
-                            label="Search"
-                            startAdornment={<SearchIcon />}
-                            id="search-input"
-                            placeholder="Search"
-                            className="self-center h-full bg-transparent w-72"
-                            inputClassName="h-full"
-                        />
-                    </Stack>
-                    <button type="submit" hidden={true} ref={submitButton}>
-                        Submit
-                    </button>
-                </form>
-            </FormProvider>
-            <Table
-                editMode="row"
-                rows={rows}
-                columns={columns}
-                rowModesModel={rowModesModel}
-                handleRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
-                handleRowModesModelChange={handleRowModesModelChange}
-            />
-        </StaffLayout>
+                        <button type="submit" hidden={true} ref={submitButton}>
+                            Submit
+                        </button>
+                    </form>
+                </FormProvider>
+                <Table
+                    editMode="row"
+                    rows={rows}
+                    columns={columns}
+                    rowModesModel={rowModesModel}
+                    handleRowEditStop={handleRowEditStop}
+                    processRowUpdate={processRowUpdate}
+                    handleRowModesModelChange={handleRowModesModelChange}
+                />
+            </StaffLayout>
+        </>
     )
 }

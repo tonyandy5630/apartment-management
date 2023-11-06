@@ -5,7 +5,7 @@ import Footer from '@/components/Footer'
 import { Container, Typography } from '@mui/material'
 import MyContainer from '@/components/Container'
 import useAuthenticated from '@/hooks/useAuthenticated'
-import { MANAGER, STAFF } from '@/constant/auth'
+import { MANAGER, STAFF } from '@/constant/auth.constant'
 import MyDialog from '@/components/Dialog'
 import { useRouter } from 'next/router'
 import { clearLS } from '@/utils/auth'
@@ -48,7 +48,7 @@ export default function StaffLayout({ children, title }: Props) {
                     >
                         {title}
                     </Typography>
-                    {!loading && children}
+                    {children}
                 </MyContainer>
             </main>
             <MyDialog

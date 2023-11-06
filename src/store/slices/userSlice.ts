@@ -57,7 +57,6 @@ export const userSlice = createSlice({
                 (state, { payload }) => {
                     state.loading = false
                     state.error = true
-                    toast.error('Renew Error')
                 }
             )
     },

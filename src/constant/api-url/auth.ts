@@ -1,4 +1,4 @@
-import { authentication } from '.'
+import { AUTHENTICATION } from '.'
 
-export const STAFF_LOGIN_API = `${authentication}/staff/login`
-export const RENEW_TOKEN_USER = `${authentication}/token/renew`
+export const STAFF_LOGIN_API = `${AUTHENTICATION}/staff/login`
+export const RENEW_TOKEN_USER = `${AUTHENTICATION}/token/renew`

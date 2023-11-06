@@ -1,4 +1,4 @@
-import { RequestStatus } from '@/types/request.type'
+import { RequestStatus } from '@/types/request-status.type'
 import getRequestStatusColor from '@/utils/getColor'
 import RequestStatusIcon from '@/utils/getIcons'
 import { Box, Stack, Typography } from '@mui/material'

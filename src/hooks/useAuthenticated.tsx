@@ -17,6 +17,7 @@ const useAuthenticated = () => {
             router.push('/staff/login')
         }
     }
+
     if (!user) {
         getRenewTokenUser()
     }

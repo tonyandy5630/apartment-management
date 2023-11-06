@@ -1,5 +1,5 @@
-import { RequestStatusColors } from '@/constant/colors'
-import { RequestStatus } from '@/types/request.type'
+import { RequestStatusColors } from '@/constant/colors.constant'
+import { RequestStatus } from '@/types/request-status.type'
 
 const getRequestStatusColor = (status: RequestStatus) => {
     switch (status) {

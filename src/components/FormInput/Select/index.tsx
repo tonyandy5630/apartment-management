@@ -1,4 +1,4 @@
-import { IFormInputProps, MenuItemType } from '@/types/auth-component.type'
+import { IFormInputProps, MenuItemType } from '@/types/form-component.type'
 import {
     FormControl,
     InputLabel,

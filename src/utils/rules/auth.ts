@@ -2,7 +2,7 @@ import {
     EMAIL_REGEX,
     LENGTH_WARNING,
     PHONE_LENGTH_WARNING,
-} from '@/constant/auth'
+} from '@/constant/auth.constant'
 import type { UseFormGetValues } from 'react-hook-form'
 
 const getRules = (getValues?: UseFormGetValues<any>) => ({

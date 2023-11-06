@@ -1,8 +1,6 @@
 import * as React from 'react'
-import Request, { RequestStatus } from '@/types/request.type'
 import {
     DataGrid,
-    GridCellModesModel,
     GridColDef,
     GridEditMode,
     GridEventListener,

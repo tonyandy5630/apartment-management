@@ -10,7 +10,7 @@ const initialState: {
     success: boolean
 } = {
     user: undefined,
-    loading: false,
+    loading: true,
     error: undefined,
     success: false,
 }
@@ -57,7 +57,6 @@ export const userSlice = createSlice({
                 (state, { payload }) => {
                     state.loading = false
                     state.error = true
-                    toast.error('Renew Error')
                 }
             )
     },

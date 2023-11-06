@@ -1,3 +1,3 @@
-import { request } from '.'
+import { REQUEST } from '.'
 
-export const GET_REQUESTS_API = `${request}`
+export const GET_REQUESTS_API = `${REQUEST}`

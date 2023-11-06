@@ -1,6 +1,11 @@
 import { object, string, InferType } from 'yup'
 import getRules from '../rules/auth'
-import { EMPTY_WARNING, MANAGER, PHONE_REGEX, STAFF } from '@/constant/auth'
+import {
+    EMPTY_WARNING,
+    MANAGER,
+    PHONE_REGEX,
+    STAFF,
+} from '@/constant/auth.constant'
 
 const rules = getRules()
 

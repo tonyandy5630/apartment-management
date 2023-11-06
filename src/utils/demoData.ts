@@ -1,27 +1,38 @@
+import { REQUEST_STATUS } from '@/constant/request.constant'
 import { createData } from '@/pages/staff/requests'
-import { MenuItemType } from '@/types/auth-component.type'
-import Request, { RequestDetail } from '@/types/request.type'
+import { MenuItemType } from '@/types/form-component.type'
+import RequestDetail from '@/types/request-detail.type'
+import Request from '@/types/request.type'
 import { GridRowProps, GridRowsProp } from '@mui/x-data-grid'
 import dayjs from 'dayjs'
 
 export const demoRequestDetail: RequestDetail = {
-    rDId: 1,
     requestId: 1,
     apartmentName: 'Riverside Apartment',
     bookDateTime: new Date(),
-    endDate: new Date(),
+    endDateTime: new Date(),
     owner: 'Bui Thanh Tu',
     packagePrice: 300,
-    packageRequested: 'Cleaning Package',
-    status: 'Pending',
-    addOnServices: [],
-    feedback: 'Good work',
+    packageName: 'Cleaning Package',
+    reqStatus: REQUEST_STATUS.Pending.status,
+    addOnList: [],
+    apartmentId: 1,
+    ownerId: 3,
+    packageRequestedId: 3,
 }
 
 export const demoRequest: Request = {
-    id: 1,
-    rdDetail: demoRequestDetail,
-    requestDescription: 'Test',
+    requestId: 1,
+    apartmentName: 'Riverside Apartment',
+    bookDateTime: new Date(),
+    endDateTime: new Date(),
+    owner: 'Bui Thanh Tu',
+    packagePrice: 300,
+    packageName: 'Cleaning Package',
+    reqStatus: REQUEST_STATUS.Pending.status,
+    apartmentId: 1,
+    ownerId: 3,
+    packageRequestedId: 3,
 }
 
 export const STATUS_iTEM: Array<MenuItemType> = [

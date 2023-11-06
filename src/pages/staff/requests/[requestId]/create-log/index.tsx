@@ -1,11 +1,11 @@
 import '@/styles/request-management.scss'
 import StaffLayout from '@/components/Layout/Staff'
 import RequestTitle from '@/components/RequestDetailContainer/RequestApartmentTitle'
-import Request, { RequestDetail } from '@/types/request.type'
+import RequestDetail from '@/types/request-detail.type'
 import Grid from '@mui/material/Unstable_Grid2'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { MenuItemType } from '@/types/auth-component.type'
+import { MenuItemType } from '@/types/form-component.type'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import FormSelect from '@/components/FormInput/Select'
 import requestLogSchema, {
@@ -19,6 +19,7 @@ import ClearIcon from '@mui/icons-material/Delete'
 import SaveIcon from '@mui/icons-material/Save'
 import MySnackBar from '@/components/Alert'
 import { demoRequest, demoTask } from '@/utils/demoData'
+import { REQUEST_STATUS } from '@/constant/request.constant'
 
 const STATUS_ITEM: Array<MenuItemType> = [
     {
@@ -32,17 +33,20 @@ const STATUS_ITEM: Array<MenuItemType> = [
 ]
 
 const demoRequestDetail: RequestDetail = {
-    rDId: 1,
     requestId: 1,
     apartmentName: 'Riverside Apartment',
     bookDateTime: new Date(),
-    endDate: new Date(),
+    endDateTime: new Date(),
     owner: 'Bui Thanh Tu',
     packagePrice: 300,
-    packageRequested: 'Cleaning Package',
-    status: 'Pending',
-    addOnServices: [],
-    feedback: 'Good work',
+    packageName: 'Cleaning Package',
+    reqStatus: REQUEST_STATUS.Pending.status,
+    addOnList: [],
+    numberOfAddOns: 0,
+    ownerId: 2,
+    packageRequestedId: 3,
+    apartmentId: 3,
+    description: 'Tét',
 }
 
 const COLUMN = 5
@@ -124,8 +128,8 @@ export default function CreateLogForRequestDetail() {
     return (
         <StaffLayout title="Create Log">
             <RequestTitle
-                apartmentName={demoRequest.rdDetail.apartmentName}
-                owner={demoRequest.rdDetail.owner}
+                apartmentName={demoRequest.apartmentName}
+                owner={demoRequest.owner}
             />
             <form onSubmit={handleSubmit(onSubmit)} className="w-4/6 h-auto">
                 <Grid

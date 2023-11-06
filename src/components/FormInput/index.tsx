@@ -12,7 +12,7 @@ import {
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import type { UseFormRegister } from 'react-hook-form'
-import { IFormInputProps } from '@/types/auth-component.type'
+import { IFormInputProps } from '@/types/form-component.type'
 
 interface InputProps extends IFormInputProps {
     inputType?: InputType

@@ -1,4 +1,4 @@
-import { RequestStatus } from '@/types/request.type'
+import { RequestStatus } from '@/types/request-status.type'
 import { object, string, InferType, date, ref, number, mixed } from 'yup'
 
 const requestLogSchema = object({

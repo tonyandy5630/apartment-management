@@ -1,5 +1,5 @@
 import React from 'react'
-import { RequestStatus } from '@/types/request.type'
+import { RequestStatus } from '@/types/request-status.type'
 import WorkingIcon from '@mui/icons-material/Engineering'
 import PendingIcon from '@mui/icons-material/QueryBuilderOutlined'
 import DoneIcon from '@mui/icons-material/DoneOutlined'

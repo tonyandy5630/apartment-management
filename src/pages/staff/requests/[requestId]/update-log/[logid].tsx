@@ -74,8 +74,8 @@ export default function UpdateLog() {
     return (
         <StaffLayout title="Update Request Log">
             <RequestTitle
-                apartmentName={demoRequest.rdDetail.apartmentName}
-                owner={demoRequest.rdDetail.owner}
+                apartmentName={demoRequest.apartmentName}
+                owner={demoRequest.owner}
             />
             <form onSubmit={handleSubmit(onSubmit)} className="w-4/6 h-auto">
                 <Grid

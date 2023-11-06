@@ -34,12 +34,12 @@ export default function RequestDetail() {
     })
 
     const handleCreateLog = () => {
-        if (demoRequestDetail.status === 'Pending') {
-            router.push(`${demoRequestDetail.requestID}/create-log`)
-        } else if (demoRequestDetail.status === 'Working') {
-            router.push('update-log', {
-                query: { logid: demoRequestDetail.requestLog?.rlId },
-            })
+        if (demoRequestDetail.reqStatus === 'Pending') {
+            router.push(`${demoRequestDetail.requestId}/create-log`)
+        } else if (demoRequestDetail.reqStatus === 'Working') {
+            // router.push('update-log', {
+            //     query: { logid: demoRequestDetail.requestLog?.rlId },
+            // })
         } else {
             router.push('view-log')
         }
@@ -64,7 +64,7 @@ export default function RequestDetail() {
                 <RequestTitle
                     apartmentName={demoRequestDetail.apartmentName}
                     owner={demoRequestDetail.owner}
-                    status={demoRequestDetail.status}
+                    status={demoRequestDetail.reqStatus}
                 >
                     {user?.role === STAFF.id ? (
                         <Button
@@ -72,7 +72,7 @@ export default function RequestDetail() {
                             handleButtonClick={handleCreateLog}
                         >
                             {(() => {
-                                switch (demoRequestDetail.status) {
+                                switch (demoRequestDetail.reqStatus) {
                                     case 'Pending':
                                         return 'Create Log'
                                     case 'Working':

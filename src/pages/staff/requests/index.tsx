@@ -41,14 +41,14 @@ export function createData(
     apartmentId: number,
     packageRequestedId: number,
     ownerId: number,
-    description: string,
+    description: string | undefined,
     apartmentName: string,
     owner: string,
     bookingDate: Date,
-    endDate: Date,
-    packageRequested: string,
-    status: RequestStatusID,
-    numberOfAddOnServices: number
+    endDate: Date | undefined,
+    packageRequested: string | undefined,
+    status: RequestStatus,
+    numberOfAddOnServices: number | undefined
 ) {
     const formatBookingDate = DateToString(bookingDate)
     const formatEndDate = DateToString(endDate)

@@ -8,13 +8,15 @@ import { useAppDispatch, useAppSelector } from '@/store'
 import FormInput from '../FormInput'
 import Button from '../Button'
 import { Box, Stack } from '@mui/material'
-import { Staff } from '@/types/auth.type'
+import { StaffBase } from '@/types/staff.type'
 import { useRouter } from 'next/router'
 
 export default function ProfileSection() {
     const dispatch = useAppDispatch()
     const router = useRouter()
-    const user = useAppSelector((state) => state.userAuthenticate.user) as Staff
+    const user = useAppSelector(
+        (state) => state.userAuthenticate.user
+    ) as StaffBase
     const {
         register,
         handleSubmit,

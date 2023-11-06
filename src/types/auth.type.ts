@@ -1,5 +1,6 @@
 import { STAFF, MANAGER } from '@/constant/auth.constant'
 import { LoginResponse, ResponseAPI, SuccessResponse } from '.'
+import StaffAuth from './staff.type'
 
 export type User = {
     name: string
@@ -9,20 +10,8 @@ export type User = {
     role: Role
 }
 
-export type Staff = {
-    id: number
-    name: string
-    password: string
-    email: string
-    phone: string
-    code: string
-    staffStatus: string
-    address: string
-    role: Role
-}
-
 export type AuthResponse = LoginResponse<{
-    user: Staff | User
+    user: StaffAuth | User
     token: string
     success: boolean
 }>

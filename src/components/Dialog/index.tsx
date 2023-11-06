@@ -11,7 +11,7 @@ import React, { memo, useState } from 'react'
 type Props = {
     open: boolean
     title?: string
-    content: string
+    content: any
     buttonContent?: string
     buttonAction: () => void
 }

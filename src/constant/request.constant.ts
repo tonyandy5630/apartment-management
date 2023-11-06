@@ -3,8 +3,12 @@ export const REQUEST_STATUS = {
         id: 0,
         status: 'Pending',
     },
-    Working: {
+    Processing: {
         id: 1,
+        status: 'Processing',
+    },
+    Working: {
+        id: 2,
         status: 'Working',
     },
     Done: {

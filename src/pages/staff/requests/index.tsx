@@ -35,6 +35,7 @@ import InfoIcon from '@mui/icons-material/Info'
 import { getRequests } from '@/apis/request.api'
 import { useQuery } from '@tanstack/react-query'
 import Head from 'next/head'
+import { REQUEST_STATUS } from '@/constant/request.constant'
 
 export function createData(
     id: number,
@@ -103,9 +104,10 @@ export default function RequestManagementPage() {
         if (requests.status === 'success') {
             const request = requests.data.data
             const { data: list } = request
+            console.log(list)
             if (list) {
-                const newRows: GridRowsProp = list.map((item) =>
-                    createData(
+                const newRows: GridRowsProp = list.map((item) => {
+                    return createData(
                         item.requestId,
                         item.apartmentId,
                         item.packageRequestedId,
@@ -119,7 +121,7 @@ export default function RequestManagementPage() {
                         item.reqStatus,
                         item.numberOfAddOns
                     )
-                )
+                })
                 setRows(Array.from(newRows) as any[])
             } else {
                 setRows([])
@@ -181,10 +183,14 @@ export default function RequestManagementPage() {
         {
             field: 'status',
             headerName: 'Status',
-            width: 90,
+            width: 130,
             editable: true,
             type: 'singleSelect',
-            valueOptions: ['Working', 'Pending', 'Done'],
+            valueOptions: [
+                REQUEST_STATUS.Pending.status.toUpperCase(),
+                REQUEST_STATUS.Working.status.toUpperCase(),
+                REQUEST_STATUS.Done.status.toUpperCase(),
+            ],
         },
         {
             field: 'actions',
@@ -212,7 +218,7 @@ export default function RequestManagementPage() {
                             icon={<ClearIcon />}
                             label="Cancel"
                             className="textPrimary"
-                            onClick={handleCancelClick(row)}
+                            onClick={handleCancelClick(id)}
                             color="inherit"
                         />,
                     ]
@@ -290,8 +296,10 @@ export default function RequestManagementPage() {
             ...rowModesModel,
             [id]: { mode: GridRowModes.View, ignoreModifications: true },
         })
+        const editedRow = rows.find((row) => {
+            return row.id === id
+        })
 
-        const editedRow = rows.find((row) => row.id === id)
         if (editedRow!.isNew) {
             setRows(rows.filter((row) => row.id !== id))
         }

@@ -12,9 +12,9 @@ type Props = {
 
 const RequestStatusIcon = ({ status, size, color }: Props) => {
     switch (status) {
-        case 'Pending':
+        case 'Pending'.toUpperCase():
             return <PendingIcon fontSize={size} sx={{ color }} />
-        case 'Working':
+        case 'Working'.toUpperCase():
             return <WorkingIcon fontSize={size} sx={{ color }} />
         default:
             return <DoneIcon fontSize={size} sx={{ color }} />

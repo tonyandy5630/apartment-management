@@ -9,5 +9,5 @@ export const EMPTY_WARNING = 'Required'
 
 export const PHONE_LENGTH_WARNING = 'Phone number is from 10 - 10 number'
 
-export const STAFF = { id: 1, name: 'Staff' }
-export const MANAGER = { id: 0, name: 'Manager' }
+export const STAFF = { id: '1', name: 'Staff' }
+export const MANAGER = { id: '0', name: 'Manager' }

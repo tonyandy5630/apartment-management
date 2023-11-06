@@ -1,8 +1,10 @@
+import { STAFF } from '@/constant/auth.constant'
 import { REQUEST_STATUS } from '@/constant/request.constant'
 import { createData } from '@/pages/staff/requests'
 import { MenuItemType } from '@/types/form-component.type'
 import RequestDetail from '@/types/request-detail.type'
 import Request from '@/types/request.type'
+import StaffAuth, { StaffView } from '@/types/staff.type'
 import { GridRowProps, GridRowsProp } from '@mui/x-data-grid'
 import dayjs from 'dayjs'
 
@@ -20,6 +22,42 @@ export const demoRequestDetail: RequestDetail = {
     ownerId: 3,
     packageRequestedId: 3,
 }
+
+export const demoStaffs: Array<StaffView> = [
+    {
+        id: 1,
+        code: 'ST1',
+        address: '123 Wall Street, NYC',
+        email: 'tonyandy789@email.com',
+        phone: '0769640460',
+        role: STAFF.id,
+        numberOfRequestWorking: 1,
+        name: 'Bui Thanh Tu',
+        staffStatus: 'active',
+    },
+    {
+        id: 2,
+        code: 'ST2',
+        address: '124 Heisenberg Street, California',
+        email: 'tonyandy789@email.com',
+        phone: '0769640460',
+        role: STAFF.id,
+        numberOfRequestWorking: 2,
+        name: 'Truong Dinh Thanh',
+        staffStatus: 'active',
+    },
+    {
+        id: 3,
+        code: 'ST3',
+        address: '124 Vo Van Ngan, Ho Chi Minh',
+        email: 'tonyandy789@email.com',
+        phone: '0769640460',
+        role: STAFF.id,
+        numberOfRequestWorking: 3,
+        name: 'Nguyen Dinh Thanh',
+        staffStatus: 'active',
+    },
+]
 
 export const demoRequest: Request = {
     requestId: 1,

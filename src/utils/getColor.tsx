@@ -3,9 +3,9 @@ import { RequestStatus } from '@/types/request-status.type'
 
 const getRequestStatusColor = (status: RequestStatus) => {
     switch (status) {
-        case 'Pending':
+        case 'Pending'.toUpperCase():
             return RequestStatusColors.pending
-        case 'Working':
+        case 'Working'.toUpperCase():
             return RequestStatusColors.working
         default:
             return RequestStatusColors.done

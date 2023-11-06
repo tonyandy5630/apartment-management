@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { loginStaff, renewTokenAndUser } from '../actions/authActions'
-import { Staff, User } from '@/types/auth.type'
+import { User } from '@/types/auth.type'
 import { toast } from 'react-toastify'
+import { StaffBase } from '@/types/staff.type'
 
 const initialState: {
-    user: Omit<User, 'password'> | Omit<Staff, 'password'> | undefined
+    user?: Omit<User, 'password'> | StaffBase
     loading: boolean
     error?: boolean
     success: boolean

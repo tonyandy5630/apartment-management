@@ -4,6 +4,7 @@ import StaffLayout from '@/components/Layout/Staff'
 import RequestDetailContainer from '@/components/RequestDetailContainer'
 import RequestTitle from '@/components/RequestDetailContainer/RequestApartmentTitle'
 import { MANAGER, STAFF } from '@/constant/auth.constant'
+import { REQUEST_STATUS } from '@/constant/request.constant'
 import { useAppDispatch, useAppSelector } from '@/store'
 import AddOnService from '@/types/add-on-services.type'
 import RequestDetail from '@/types/request-detail.type'
@@ -25,13 +26,24 @@ export default function RequestDetail() {
     const { requestId } = router.query
     const dispatch = useAppDispatch()
     const user = useAppSelector((state) => state.userAuthenticate.user)
-    const handleAssignStaff = () => {}
+
     const detail = useQuery({
         queryKey: ['get-request-detail', requestId],
         queryFn: () => getRequestDetail(requestId as string),
         retry: 2,
         enabled: requestId !== undefined,
     })
+
+    const handlePrimaryActionClick = () => {
+        const isManager = user?.role === MANAGER.id
+        const isPending =
+            requestDetail?.reqStatus ===
+            REQUEST_STATUS.Pending.status.toUpperCase()
+        console.log()
+        if (isManager && isPending) {
+            router.push(`${requestDetail.requestId}/assign-staff`)
+        }
+    }
 
     const handleCreateLog = () => {
         if (demoRequestDetail.reqStatus === 'Pending') {
@@ -62,9 +74,12 @@ export default function RequestDetail() {
             </Head>
             <StaffLayout title="Request Detail">
                 <RequestTitle
-                    apartmentName={demoRequestDetail.apartmentName}
-                    owner={demoRequestDetail.owner}
-                    status={demoRequestDetail.reqStatus}
+                    apartmentName={
+                        requestDetail?.apartmentName ??
+                        demoRequestDetail.apartmentName
+                    }
+                    owner={requestDetail?.owner}
+                    status={requestDetail?.reqStatus}
                 >
                     {user?.role === STAFF.id ? (
                         <Button
@@ -72,12 +87,12 @@ export default function RequestDetail() {
                             handleButtonClick={handleCreateLog}
                         >
                             {(() => {
-                                switch (demoRequestDetail.reqStatus) {
-                                    case 'Pending':
+                                switch (requestDetail?.reqStatus) {
+                                    case 'Pending'.toUpperCase():
                                         return 'Create Log'
-                                    case 'Working':
+                                    case 'Working'.toUpperCase():
                                         return 'Update Log'
-                                    case 'Done':
+                                    case 'Done'.toUpperCase():
                                         return 'View Log'
                                 }
                             })()}
@@ -85,9 +100,12 @@ export default function RequestDetail() {
                     ) : (
                         <Button
                             variant="primary"
-                            handleButtonClick={handleAssignStaff}
+                            handleButtonClick={handlePrimaryActionClick}
                         >
-                            Assign
+                            {demoRequestDetail.reqStatus.toLowerCase() ===
+                            REQUEST_STATUS.Pending.status.toLowerCase()
+                                ? 'Assign Staff'
+                                : 'View Logs'}
                         </Button>
                     )}
                 </RequestTitle>

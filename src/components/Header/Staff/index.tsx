@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store'
 import { AppBar, Avatar, Box, Stack, Toolbar, Typography } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'
-import { Staff } from '@/types/auth.type'
+import { StaffBase } from '@/types/staff.type'
 
 const AVATAR_RADIUS = 40
 
@@ -66,12 +66,12 @@ export default function StaffHeader() {
                                     >
                                         <Typography fontSize="15px">
                                             {user !== undefined && !loading
-                                                ? (user as Staff).name
+                                                ? (user as StaffBase).name
                                                 : 'Loading...'}
                                         </Typography>
                                         <Typography fontSize="13px">
                                             {user !== undefined && !loading
-                                                ? (user as Staff).email
+                                                ? (user as StaffBase).email
                                                 : 'Loading...'}
                                         </Typography>
                                     </Stack>

@@ -8,8 +8,11 @@ import Request from '@/types/request.type'
 import RequestLog from '@/types/request-log.type'
 import { ASSIGN_STAFF_API } from '@/constant/api-url/request-log'
 
-export const getRequests = () =>
+export const getPendingRequests = () =>
     http.get<ErrorResponse<Array<Request>>>(GET_PENDING_REQUEST_API)
+
+export const getRequests = () =>
+    http.get<ErrorResponse<Array<Request>>>(GET_REQUESTS_API)
 
 export const assignStaffToRequest = (body: {
     requestId: number

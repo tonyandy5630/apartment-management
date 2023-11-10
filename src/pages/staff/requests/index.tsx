@@ -32,7 +32,7 @@ import SaveIcon from '@mui/icons-material/Save'
 import ClearIcon from '@mui/icons-material/Clear'
 import EditIcon from '@mui/icons-material/Edit'
 import InfoIcon from '@mui/icons-material/Info'
-import { getRequests } from '@/apis/request.api'
+import { getPendingRequests } from '@/apis/request.api'
 import { useQuery } from '@tanstack/react-query'
 import Head from 'next/head'
 import { REQUEST_STATUS } from '@/constant/request.constant'
@@ -95,7 +95,7 @@ export default function RequestManagementPage() {
     const submitButton = useRef<any>()
     const requests = useQuery({
         queryKey: ['get-requests'],
-        queryFn: getRequests,
+        queryFn: getPendingRequests,
         retry: 3,
         enabled: !isError,
     })
@@ -104,7 +104,6 @@ export default function RequestManagementPage() {
         if (requests.status === 'success') {
             const request = requests.data.data
             const { data: list } = request
-            console.log(list)
             if (list) {
                 const newRows: GridRowsProp = list.map((item) => {
                     return createData(

@@ -43,19 +43,19 @@ export default function AdminHeader() {
                                         </Link>
                                         <Link
                                             className="link"
-                                            href="/admin/customers"
+                                            href="/admin/owners"
                                         >
-                                            Customers
+                                            Owners
                                         </Link>
                                         <Link
                                             className="link"
-                                            href="/admin/package"
+                                            href="/admin/packages"
                                         >
                                             Packages
                                         </Link>
                                         <Link
                                             className="link"
-                                            href="/admin/apartment"
+                                            href="/admin/apartments"
                                         >
                                             Apartments
                                         </Link>

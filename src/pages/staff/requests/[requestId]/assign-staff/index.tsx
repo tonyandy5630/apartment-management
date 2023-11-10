@@ -8,7 +8,7 @@ import {
     GridRowModes,
     GridRowModesModel,
 } from '@mui/x-data-grid'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import FilterIcon from '@mui/icons-material/FilterAlt'
 import SearchIcon from '@mui/icons-material/Search'
@@ -21,6 +21,13 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import AssignStaffFilterSchema, {
     AssignStaffFilterSchemaType,
 } from '@/utils/schemas/assignStaffFilterSchema'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { getStaffOnly } from '@/apis/staff.api'
+import { StaffView } from '@/types/staff.type'
+import { useRouter } from 'next/router'
+import { assignStaffToRequest } from '@/apis/request.api'
+import { toast } from 'react-toastify'
+import { notFound } from 'next/navigation'
 
 const NUMBER_OF_REQUESTS: Array<MenuItemType> = [
     {
@@ -34,10 +41,18 @@ const NUMBER_OF_REQUESTS: Array<MenuItemType> = [
 ]
 
 export default function AssignStaffPage() {
-    const [rows, setRows] = React.useState(demoStaffs)
+    const [rows, setRows] = React.useState<any>(demoStaffs)
     const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
         {}
     )
+    const router = useRouter()
+    const { requestId } = router.query
+
+    const staffRes = useQuery({
+        queryKey: ['get-all-staff'],
+        queryFn: () => getStaffOnly,
+        retry: 2,
+    })
 
     const myForm = useForm<AssignStaffFilterSchemaType>({
         defaultValues: {},
@@ -53,6 +68,12 @@ export default function AssignStaffPage() {
         formState: { errors },
     } = myForm
     const submitButton = useRef<any>()
+
+    const assignStaffMutation = useMutation({
+        mutationKey: ['assign-staff-mutation'],
+        mutationFn: (body: { requestId: number; staffId: number }) =>
+            assignStaffToRequest(body),
+    })
 
     const onSubmit: SubmitHandler<AssignStaffFilterSchemaType> = async (
         data
@@ -84,6 +105,12 @@ export default function AssignStaffPage() {
         // }
     }
 
+    useEffect(() => {
+        if (staffRes.isSuccess) {
+            setRows(staffRes.data.data.data)
+        }
+    }, [staffRes.status])
+
     const columns: GridColDef[] = [
         {
             field: 'code',
@@ -107,11 +134,11 @@ export default function AssignStaffPage() {
             headerName: 'Address',
             width: 400,
         },
-        {
-            field: 'numberOfRequestWorking',
-            headerName: 'Requests Working On',
-            width: 170,
-        },
+        // {
+        //     field: 'numberOfRequestWorking',
+        //     headerName: 'Requests Working On',
+        //     width: 170,
+        // },
         {
             field: 'actions',
             type: 'actions',
@@ -134,8 +161,27 @@ export default function AssignStaffPage() {
     ]
 
     const handleAssignClick = (id: GridRowId) => () => {
-        console.log(id)
+        if (!requestId) {
+            notFound()
+        }
+        const body = {
+            requestId: parseInt(requestId as string),
+            staffId: id as number,
+        }
+
+        assignStaffMutation.mutate(body, {
+            onSuccess: (data) => {
+                toast.success(data.data.message)
+            },
+            onError: (data) => {
+                toast.error('Assign staff Failed')
+            },
+        })
+        setTimeout(() => {
+            router.push('/staff/requests')
+        }, 3000)
     }
+
     return (
         <StaffLayout title="Assign Staff To Request">
             <FormProvider {...myForm}>

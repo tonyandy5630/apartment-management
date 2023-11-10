@@ -29,7 +29,10 @@ export default function TrustCard({
                 >
                     {title}
                 </Typography>
-                <Typography fontSize="20px" className="max-w-[200px]">
+                <Typography
+                    fontSize="20px"
+                    className="max-w-[200px] text-white"
+                >
                     You can be anywhere and the house still be the same
                 </Typography>
             </Stack>

@@ -33,7 +33,7 @@ export const demoStaffs: Array<StaffView> = [
         role: STAFF.id,
         numberOfRequestWorking: 1,
         name: 'Bui Thanh Tu',
-        staffStatus: 'active',
+        status: 1,
     },
     {
         id: 2,
@@ -44,7 +44,7 @@ export const demoStaffs: Array<StaffView> = [
         role: STAFF.id,
         numberOfRequestWorking: 2,
         name: 'Truong Dinh Thanh',
-        staffStatus: 'active',
+        status: 1,
     },
     {
         id: 3,
@@ -55,7 +55,7 @@ export const demoStaffs: Array<StaffView> = [
         role: STAFF.id,
         numberOfRequestWorking: 3,
         name: 'Nguyen Dinh Thanh',
-        staffStatus: 'active',
+        status: 1,
     },
 ]
 

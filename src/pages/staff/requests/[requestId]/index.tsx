@@ -61,6 +61,7 @@ export default function RequestDetail() {
         if (detail.status === 'success') {
             const rqDetail = detail.data.data.data
             if (rqDetail) {
+                console.log(rqDetail)
                 setRequestDetail(rqDetail)
                 setAddOnServiceList(rqDetail.addOnList)
             }

@@ -16,4 +16,4 @@ export type AuthResponse = LoginResponse<{
     success: boolean
 }>
 
-export type Role = typeof STAFF.id | typeof MANAGER.id
+export type Role = typeof STAFF.name | typeof MANAGER.name

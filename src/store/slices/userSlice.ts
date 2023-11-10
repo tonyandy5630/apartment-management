@@ -11,7 +11,7 @@ const initialState: {
     success: boolean
 } = {
     user: undefined,
-    loading: true,
+    loading: false,
     error: undefined,
     success: false,
 }
@@ -37,7 +37,6 @@ export const userSlice = createSlice({
             builder.addCase(loginStaff.rejected, (state, { payload }) => {
                 state.loading = false
                 state.error = true
-                toast.error('Login Error')
             }),
             //* Renew Token
             builder.addCase(renewTokenAndUser.pending, (state, { payload }) => {

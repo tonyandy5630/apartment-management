@@ -43,7 +43,7 @@ export const renewTokenAndUser = createAsyncThunk(
             }
             return data
         } catch (e: any) {
-            toast(e.message)
+            rejectWithValue('Something went wrong')
         }
     }
 )

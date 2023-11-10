@@ -6,7 +6,7 @@ export type StaffBase = {
     email: string
     phone: string
     code: string
-    staffStatus: string
+    status: number
     address?: string
     role: Role
 }

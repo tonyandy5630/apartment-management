@@ -102,7 +102,7 @@ export default function RequestDetail() {
                             variant="primary"
                             handleButtonClick={handlePrimaryActionClick}
                         >
-                            {demoRequestDetail.reqStatus.toLowerCase() ===
+                            {requestDetail?.reqStatus.toLowerCase() ===
                             REQUEST_STATUS.Pending.status.toLowerCase()
                                 ? 'Assign Staff'
                                 : 'View Logs'}

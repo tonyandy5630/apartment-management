@@ -54,7 +54,6 @@ export default function LoginPage() {
     }, [])
 
     useEffect(() => {
-        console.log(true)
         const getUser = async () => {
             const request = await dispatch(renewTokenAndUser())
             if (request.payload) {
@@ -64,7 +63,7 @@ export default function LoginPage() {
                 }
             }
         }
-        if (!user && getAccessTokenFromLS() !== '') {
+        if (!user || getAccessTokenFromLS() === '') {
             getUser()
         } else {
             router.push('/staff/requests')

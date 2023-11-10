@@ -64,10 +64,8 @@ export default function LoginPage() {
             }
         }
 
-        if (!user && getAccessTokenFromLS() === '') {
+        if (getAccessTokenFromLS() !== '') {
             getUser()
-        } else {
-            router.push('/staff/requests')
         }
     }, [user?.name])
 

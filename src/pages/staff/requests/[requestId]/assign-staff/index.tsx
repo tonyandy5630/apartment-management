@@ -172,14 +172,12 @@ export default function AssignStaffPage() {
         assignStaffMutation.mutate(body, {
             onSuccess: (data) => {
                 toast.success(data.data.message)
+                router.push('/staff/requests')
             },
             onError: (data) => {
                 toast.error('Assign staff Failed')
             },
         })
-        setTimeout(() => {
-            router.push('/staff/requests')
-        }, 3000)
     }
 
     return (
